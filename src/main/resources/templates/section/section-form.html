@@ -63,7 +63,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		<div class="row">
 			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 			<div class="span4 offset4 well">
-				<form action="#" th:action="@{/section}" th:object="${section}" method="post">
+				<form action="#" th:action="@{/sections}" th:object="${section}" method="post">
 				  <div class="form-group">
 				    <label for="blockName">Block name</label>
 				    <input type="text" th:field="*{blockName}" class="form-control" id="blockName" placeholder="Block name" />
@@ -81,6 +81,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 				    <input type="text" th:field="*{courseName}" class="form-control" id="courseName" placeholder="Course name" />
 				    <div class="help-block with-errors" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
 				  </div>
+				  <!--
 				  <div class="form-group">
 				    <label for="course">Course:</label>
 				    <select th:field="*{courses}" th:multiple="multiple" class="form-control" id="course">
@@ -90,6 +91,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 				      	th:text="${kozi}">Machine Learning</option>
 				    </select>
 				  </div>
+				  -->
 				  <div class="form-group">
 				    <label for="entryName">Entry Name</label>
 				    <input type="text" th:field="*{entryName}" class="form-control" id="entryName" placeholder="Entry name" />

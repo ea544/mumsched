@@ -20,6 +20,12 @@ public class SectionService implements SectionServiceInterface {
 	public Section save(Section section) {
 		return sectionRepository.save(section);
 	}
+	
+	@Override
+	public void delete(Long id) {
+		sectionRepository.delete(id);
+	}
+	
 
 	@Override
 	public Section getSection(String blockName) {

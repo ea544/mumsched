@@ -59,13 +59,13 @@ public class SectionController {
 	 * 
 	 * @return
 	 */
-	/*@GetMapping("/section/new")
-	public String displayNewForm(Model model) {
-		model.addAttribute("allSection", courseService.getCourseList());
-		model.addAttribute("", new ());
-		return "/-form";
+	@GetMapping("/sections/new")
+	public String displayNewSectionForm(Model model) {
+		model.addAttribute("allSection", sectionService.getSectionList());
+		model.addAttribute("section", new Section());
+		return "section/section-form";
 	}
-	*/
+	
 	/**
 	 * Display a form pre-populated with the course details to edit
 	 * add all courses to the form, to be displayed in  courses 
@@ -73,23 +73,31 @@ public class SectionController {
 	 * to further decouple this, we could call using a web-service
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="//{id}", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/sectionsUpdate/{id}", method=RequestMethod.GET)
 	public String displayEditForm(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("allCourses", courseService.getCourseList());
-		model.addAttribute("", Service.get(id));
-		return "/-form";
+		//model.addAttribute("allCourses", courseService.getCourseList());
+		model.addAttribute("section", sectionService.getSection(id));
+		return "section/section-form";
 	}
-	*/
+	
+	@RequestMapping(value="/sectionsDelete/{id}", method=RequestMethod.GET)
+	public String delete(@PathVariable("id") Long id, Model model) {
+		//model.addAttribute("allCourses", courseService.getCourseList());
+		//model.addAttribute("section", sectionService.getSection(id));
+		sectionService.delete(id);
+		return "redirect:/sections";
+	}
+	
 	
 	/**
 	 * Handle updating a course
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="//{id}", method=RequestMethod.POST)
-	public String update() {
-		return "redirect:/";
-	}
-	*/
+	
+	/*@RequestMapping(value="/sectionsDelete/{id}", method=RequestMethod.GET)
+	public String delete() {
+		return "redirect:/sections";
+	}*/
+	
 }
