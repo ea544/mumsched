@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
 <head>
 <meta charset="ISO-8859-1"></meta>
-<title>Insert title here</title>
-</head>
-<body>
+<title>MUMSched :: Schedules</title>
 
+<!-- Bootstrap core CSS -->
+<link th:href="@{/standard/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+
+<!-- Custom fonts for this template -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i"
+	rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i"
+	rel="stylesheet" />
+<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" th:href="@{/home}">MUM</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/logout}">Logout</a></li>
+					<li><a th:href="@{/home}">Home</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Actions <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
+							<li role="separator" class="divider"></li>
+							<li><a th:href="@{/logout}">Logout</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="container">
+		<div class="row well">
+			<div class="col-md-9">
+				<!-- table -->
+			</div>
+
+			<div class="col-md-3">
+				<p>
+<!-- 					<a th:href="@{/faculty/new}">Create Faculty Profile</a> -->
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{/standard/jquery/jquery.min.js}"></script>
+	<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- Plugin JavaScript -->
+	<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
+
+	<!-- Custom scripts for this template -->
+	<script th:src="@{/js/mumsched.js}"></script>
 </body>
 </html>
