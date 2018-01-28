@@ -70,9 +70,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 						</tr>
 					</thead>
 					<tbody> 
-						<th:block th:each="section : ${sections}">
+						<th:block th:each="section, iter : ${sections}">
 						<tr> 
-							<th scope="row">1</th> 
+							<!-- <th scope="row">1</th> -->
+							<td th:text="${iter.index+1}"></td> 
 							<td th:text="${section.blockName}">Sovello</td> 
 							<td th:text="${section.capacity}">Hildebrand</td> 
 							<td th:text="${section.courseName}">shildebrand@mumsched.tao</td>

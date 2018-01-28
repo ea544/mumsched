@@ -1,8 +1,13 @@
 package com.mumscheduler.section.controller;
 
+import com.mumscheduler.course.model.Course;
 import com.mumscheduler.course.service.CourseService;
 import com.mumscheduler.section.model.Section;
 import com.mumscheduler.section.service.SectionService;
+import com.mumscheduler.faculty.model.Faculty;
+import com.mumscheduler.faculty.service.FacultyService;
+
+//import java.util.function.Consumer;
 
 import javax.validation.Valid;
 
@@ -25,6 +30,10 @@ public class SectionController {
 	
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private FacultyService facultyService;
+	
 	/**
 	 * Display all the courses
 	 * @return
@@ -62,7 +71,20 @@ public class SectionController {
 	@GetMapping("/sections/new")
 	public String displayNewSectionForm(Model model) {
 		model.addAttribute("allSection", sectionService.getSectionList());
+		Iterable<Course> courses = courseService.getCourseList();
+		Iterable<Faculty> faculties = facultyService.getFacultyList();
+		model.addAttribute("courses", courses);
+		model.addAttribute("faculties",faculties);
 		model.addAttribute("section", new Section());
+		
+		courses.forEach((c) -> System.out.println(c.getId()+" "+c.getName()));
+		/*for(Course c : courses)
+		{
+			System.out.println(c.getId()+" "+c.getName());
+			//System.out.println(c.getId());
+		}
+		*/
+		
 		return "section/section-form";
 	}
 	
@@ -77,7 +99,13 @@ public class SectionController {
 	@RequestMapping(value="/sectionsUpdate/{id}", method=RequestMethod.GET)
 	public String displayEditForm(@PathVariable("id") Long id, Model model) {
 		//model.addAttribute("allCourses", courseService.getCourseList());
+		Iterable<Course> courses = courseService.getCourseList();
+		Section section = sectionService.getSection(id);
 		model.addAttribute("section", sectionService.getSection(id));
+		model.addAttribute("courses", courses);
+		
+		System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
+		
 		return "section/section-form";
 	}
 	
