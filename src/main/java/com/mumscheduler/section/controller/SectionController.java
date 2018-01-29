@@ -100,8 +100,10 @@ public class SectionController {
 	public String displayEditForm(@PathVariable("id") Long id, Model model) {
 		//model.addAttribute("allCourses", courseService.getCourseList());
 		Iterable<Course> courses = courseService.getCourseList();
+		Iterable<Faculty> faculties = facultyService.getFacultyList();
 		Section section = sectionService.getSection(id);
 		model.addAttribute("section", sectionService.getSection(id));
+		model.addAttribute("faculties",faculties);
 		model.addAttribute("courses", courses);
 		
 		System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
