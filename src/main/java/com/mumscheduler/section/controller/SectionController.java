@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 @Controller
 public class SectionController {
 	
@@ -34,14 +35,19 @@ public class SectionController {
 	@Autowired
 	private FacultyService facultyService;
 	
+	//@Autowired
+	//String title = "Manage Section";
+	
 	/**
-	 * Display all the courses
+	 * Display all the section
 	 * @return
 	 */
 	@GetMapping("/sections")
 	public String sectionHome(Model model) {
+		String title = "Manage Section";
 		Iterable<Section> sections = sectionService.getSectionList();
 		model.addAttribute("sections", sections);
+		model.addAttribute("title", title);
 		return "section/section-list";
 	}
 	
@@ -70,12 +76,14 @@ public class SectionController {
 	 */
 	@GetMapping("/sections/new")
 	public String displayNewSectionForm(Model model) {
+		String title = "Create a new section";
 		model.addAttribute("allSection", sectionService.getSectionList());
 		Iterable<Course> courses = courseService.getCourseList();
 		Iterable<Faculty> faculties = facultyService.getFacultyList();
 		model.addAttribute("courses", courses);
 		model.addAttribute("faculties",faculties);
 		model.addAttribute("section", new Section());
+		model.addAttribute("title", title);
 		
 		courses.forEach((c) -> System.out.println(c.getId()+" "+c.getName()));
 		/*for(Course c : courses)
@@ -99,12 +107,14 @@ public class SectionController {
 	@RequestMapping(value="/sectionsUpdate/{id}", method=RequestMethod.GET)
 	public String displayEditForm(@PathVariable("id") Long id, Model model) {
 		//model.addAttribute("allCourses", courseService.getCourseList());
+		String title = "Update section";
 		Iterable<Course> courses = courseService.getCourseList();
 		Iterable<Faculty> faculties = facultyService.getFacultyList();
 		Section section = sectionService.getSection(id);
 		model.addAttribute("section", sectionService.getSection(id));
 		model.addAttribute("faculties",faculties);
 		model.addAttribute("courses", courses);
+		model.addAttribute("title", title);
 		
 		System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
 		
