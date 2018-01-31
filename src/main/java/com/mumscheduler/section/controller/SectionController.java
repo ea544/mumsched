@@ -75,14 +75,15 @@ public class SectionController {
 	 * @return
 	 */
 	@GetMapping("/sections/new")
-	public String displayNewSectionForm(Model model) {
+	public String displayNewSectionForm(Model model, @ModelAttribute("section") Section newSection) {
 		String title = "Create a new section";
 		model.addAttribute("allSection", sectionService.getSectionList());
 		Iterable<Course> courses = courseService.getCourseList();
 		Iterable<Faculty> faculties = facultyService.getFacultyList();
 		model.addAttribute("courses", courses);
 		model.addAttribute("faculties",faculties);
-		model.addAttribute("section", new Section());
+		//model.addAttribute("section", new Section()); change to
+		model.addAttribute("section", newSection);
 		model.addAttribute("title", title);
 		
 		courses.forEach((c) -> System.out.println(c.getId()+" "+c.getName()));
