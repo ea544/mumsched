@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 
 	<head>
 		<meta charset="utf-8" />
@@ -43,7 +43,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
-	      	<li><a th:href="@{/logout}">Logout</a></li>
+	      	<th:block sec:authorize="isAuthenticated()">
+	      	<li th:class="${activeTab == 'dashboard'} ? 'active' : null"><a th:href="@{/dashboard}">[Dashboard]</a></li>
+	      	<li th:class="${activeTab == 'entries'} ? 'active' : null"><a th:href="@{/entries}">[Entries]</a></li>
+	      	<li th:class="${activeTab == 'blocks'} ? 'active' : null"><a th:href="@{/blocks}">[Blocks]</a></li>
+	      	<li th:class="${activeTab == 'courses'} ? 'active' : null"><a th:href="@{/courses}">[Courses]</a></li>
+	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
+	      	<li th:class="${activeTab == 'sections'} ? 'active' : null"><a th:href="@{/sections}">[Sections]</a></li>
+	      	<li th:class="${activeTab == 'schedules'} ? 'active' : null"><a th:href="@{/schedules}">[Schedules]</a></li>
+	      	</th:block>
 	      	<li><a th:href="@{/home}">Home</a></li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
@@ -51,7 +59,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	          <ul class="dropdown-menu">
 	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
 		        <li role="separator" class="divider"></li>
+		        <th:block sec:authorize="isAuthenticated()">
 		        <li><a th:href="@{/logout}">Logout</a></li>
+		        </th:block>
 	          </ul>
 	        </li>
 	      </ul>
@@ -65,30 +75,29 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 				<table class="table table-hover">
 					<thead>
 						<tr> 
-							<th>#</th> <th>Course Code</th> <th>Course Level</th> <th>Course Name</th><th>Action</th> 
+							<th>#</th> <th>Entry</th><th>Block Name</th> <th>Block Number</th> 
+							<th>Start Date</th><th>End Date</th><th>Action</th> 
 						</tr>
 					</thead>
 					<tbody> 
+						<th:block th:each="block : ${blocks}">
 						<tr> 
-							<th scope="row">1</th> <td>SW</td> <td>425</td> <td>Software Engineering</td>
-							<td><a th:href="@{/courses/course.id?update=1}">Update</a> | 
-							<a th:href="@{/courses/course.id?update=0}">Delete</a></td>
-						</tr> 
-						<tr> 
-							<th scope="row">2</th> <td>ML</td> <td>525</td> <td>Machine Learning</td> 
-							<td><a th:href="@{/courses/course.id?update=1}">Update</a> | 
-							<a th:href="@{/courses/course.id?update=0}">Delete</a></td>
-						</tr> 
-						<tr> 
-							<th scope="row">3</th> <td>EA</td> <td>544</td> <td>Enterprise Architecture</td>
-							<td><a th:href="@{/courses/course.id?update=1}">Update</a> | 
-							<a th:href="@{/courses/course.id?update=0}">Delete</a></td> 
+							<th scope="row">1</th> 
+							<td></td>
+							<!-- <td th:text="${block.entry}">January 2018</td> --> 
+							<td th:text="${block.name}">March 2018</td> 
+							<td th:text="${block.serial}">2</td>
+							<td th:text="${block.startdate}">February 26, 2018</td>
+							<td th:text="${block.enddate}">March 23, 2018</td>
+							<td><a th:href="@{'/blocks/'+${block.id}+'?update=1'}">Update</a> | 
+							<a th:href="@{'/blocks/'+${block.id}+'?update=0'}">Delete</a></td>
 						</tr>
+						</th:block>
 					</tbody>
 				</table>    
 			</div>
 			<div class="col-md-3">
-				<p><a th:href="@{/courses/new}">Create a new Course</a></p>
+				<p><a th:href="@{/blocks/new}">Create a new Block</a></p>
 			</div>
 		</div>
 	</div>

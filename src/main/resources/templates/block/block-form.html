@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 
 	<head>
 		<meta charset="utf-8" />
@@ -18,9 +18,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
 		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
+		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
+		<link th:href="@{/standard/jquery/ui/jquery-ui.min.css}" rel="stylesheet" />
 		<!-- Custom styles for this template -->
 		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		<script th:inline="javascript">
+		
+		  $( function() {
+			    $( "#enddate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+		  $( function() {
+			    $( "#startdate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+		  </script>
 	</head>
 
 	<body>
@@ -51,7 +69,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	          <ul class="dropdown-menu">
 	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
 		        <li role="separator" class="divider"></li>
+		        <th:block sec:authorize="isAuthenticated()">
 		        <li><a th:href="@{/logout}">Logout</a></li>
+		        </th:block>
 	          </ul>
 	        </li>
 	      </ul>
@@ -63,50 +83,56 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		<div class="row">
 			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 			<div class="span4 offset4 well">
-				<form>
+				<form action="#" th:action="@{/blocks}" th:object="${block}" method="post">
 				  <div class="form-group">
-				    <label for="courseCode">Course Code</label>
-				    <input type="text" class="form-control" id="courseCode" placeholder="e.g. ML, SW" />
+				    <label for="serial">Block number</label>
+				    <input type="text" th:field="*{serial}" class="form-control" id="serial" placeholder="1" />
+				  </div>
+				  <th:block th:if="${id != null}">
+				  	<input type="hidden" th:field="*{id}" />
+				  </th:block>
+				  <div class="form-group">
+				    <label for="name">Block name</label>
+				    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="February" />
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 				  </div>
 				  <div class="form-group">
-				    <label for="courseLevel">Course Level</label>
-				    <input type="text" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
+				    <label for="startDate">Start date</label>
+				    <div class='input-group date'>
+					    <input type="text" th:field="*{startdate}" class="form-control" id="startdate" placeholder="Set date" />
+					    <span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+					    <div class="help-block with-errors" th:if="${#fields.hasErrors('startdate')}" th:errors="*{startdate}"></div>
+					</div>
 				  </div>
 				  <div class="form-group">
-				    <label for="courseName">Course Name</label>
-				    <input type="text" class="form-control" id="courseName" placeholder="e.g. Software Engineering" />
+				    <label for="endDate">End date</label>
+				   	<div class="input-group date">
+				   	 	<input type="text" th:field="*{enddate}" class="form-control" id="enddate" placeholder="Set date" />
+				    	<span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+	                </div>
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('enddate')}" th:errors="*{enddate}"></div>
 				  </div>
+				  <!-- 
+				  <div class="form-group">
+				    <label for="entry">Entry:</label>
+				    <select th:field="*{entry}" class="form-control" id="entry">
+				      <option
+				      	th:each="entry: ${entries}" 
+				      	th:value="${entry.id}"
+				      	th:text="${entry}">January 2018</option>
+				    </select>
+				  </div>
+				   -->
 				  <div class="form-group text-right">
 				  	<label for="submitButton">
-				  		<button type="submit" class="btn btn-default btn-group">Submit</button>
+				  		<a th:href="@{/blocks}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
+				  		<button type="submit" class="btn btn-default btn-group">Save</button>
 				  	</label>
 				  </div>
-				  <!--
-				  <div class="form-group">
-				    <label for="course">Course Level</label>
-				    <select class="form-control" id="course">
-				      <option>1</option>
-				      <option>2</option>
-				      <option>3</option>
-				      <option>4</option>
-				      <option>5</option>
-				    </select>
-				  </div>
-				  <div class="form-group">
-				    <label for="exampleFormControlSelect2">Example multiple select</label>
-				    <select multiple="multiple" class="form-control" id="exampleFormControlSelect2">
-				      <option>1</option>
-				      <option>2</option>
-				      <option>3</option>
-				      <option>4</option>
-				      <option>5</option>
-				    </select>
-				  </div>
-				  <div class="form-group">
-				    <label for="exampleFormControlTextarea1">Example textarea</label>
-				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-				  </div>
-					-->
 				</form>    
 			</div>
 		</div>
@@ -132,12 +158,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	</div>
 	
 		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
 		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
 		
 		<!-- Plugin JavaScript -->
 		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
+  		<script th:src="@{/standard/jquery/ui/jquery-ui.min.js}"></script>
 		<!-- Custom scripts for this template -->
 		<script th:src="@{/js/mumsched.js}"></script>
 	
