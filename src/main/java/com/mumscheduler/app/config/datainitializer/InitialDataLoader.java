@@ -40,7 +40,7 @@ public class InitialDataLoader implements ApplicationRunner {
 		 * Initialize the database with super user admin
 		 */
 		
-		User user = new User();
+		User user = new User("admin", "admin");
 		user.setEmail(env.getProperty("mumsched.admin.email"));
 		user.setPassword(env.getProperty("mumsched.admin.password"));
 		userService.save(user, "ADMIN");
