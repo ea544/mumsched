@@ -12,8 +12,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component
 @PropertySource("classpath:mumsched.properties")
+@Component
 public class InitialDataLoader implements ApplicationRunner {
 
 	private UserService userService;
