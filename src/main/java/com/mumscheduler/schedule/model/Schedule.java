@@ -6,12 +6,15 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Schedule {
-	private UID id;
+	@Id @GeneratedValue
+	private long id;
 	private String name;
 	// @OneToOne
 	// private Entry entry;
@@ -25,11 +28,11 @@ public class Schedule {
 	@Enumerated(EnumType.STRING)
 	private ScheduleStatus status;
 
-	public UID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(UID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

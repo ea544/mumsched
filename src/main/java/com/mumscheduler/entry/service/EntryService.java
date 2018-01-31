@@ -3,10 +3,12 @@ package com.mumscheduler.entry.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mumscheduler.entry.model.Entry;
 import com.mumscheduler.entry.repository.EntryRepository;
 
+@Service
 public class EntryService implements EntryServiceInterface
 {
 	

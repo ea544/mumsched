@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.mumscheduler.schedule.model.Schedule;
 
-public interface ScheduleRepository extends CrudRepository<Schedule, UID> {
+public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
 
 }
