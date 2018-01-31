@@ -23,6 +23,7 @@ public class Entry
 	private LocalDate endDate;
 	private LocalDate startDate;
 	
+	public Entry() {}
 	
 	public Entry(int fppNum, int mppNum, String entryName, LocalDate endDate, LocalDate startDate) {
 		super();
@@ -33,6 +34,13 @@ public class Entry
 		this.startDate = startDate;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public int getFppNum() {
 		return fppNum;
