@@ -11,6 +11,28 @@
 	<relativePath /> <!-- lookup parent from repository -->
   </parent>
   <dependencies>
+  	<!-- only for development. don't use it in production -->
+  	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+    </dependency>
+  	<dependency>
+  		<!-- we need to exclude the default spring logging and we going to use
+  		log4j logging -->
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter</artifactId>
+	    <exclusions>
+	        <exclusion>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-logging</artifactId>
+	        </exclusion>
+	    </exclusions>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-log4j2</artifactId>
+	</dependency>	
   	<dependency>
   		<groupId>org.springframework.boot</groupId>
   		<artifactId>spring-boot-starter-security</artifactId>
@@ -19,6 +41,10 @@
   		<groupId>org.springframework.boot</groupId>
   		<artifactId>spring-boot-starter-thymeleaf</artifactId>
   	</dependency>
+  	<dependency>
+	    <groupId>org.thymeleaf.extras</groupId>
+	    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+	    </dependency>
   	<dependency>
   		<groupId>org.springframework.boot</groupId>
   		<artifactId>spring-boot-starter-web</artifactId>
