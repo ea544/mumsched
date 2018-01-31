@@ -57,9 +57,9 @@ public class CourseController {
 	 * @return
 	 */
 	@GetMapping("/courses/new")
-	public String displayNewCourseForm(Model model) {
+	public String displayNewCourseForm(Model model, @ModelAttribute("course") Course newCourse) {
 		model.addAttribute("allFaculty", facultyService.getFacultyList());
-		model.addAttribute("course", new Course());
+		model.addAttribute("course", newCourse);
 		return "course/course-form";
 	}
 	
