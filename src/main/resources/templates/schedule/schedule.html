@@ -63,15 +63,17 @@
 
 	<div class="container">
 		<div class="row well">
-			<div class="col-md-9">
-				<!-- table -->
-			</div>
-
-			<div class="col-md-3">
-				<p>
-<!-- 					<a th:href="@{/faculty/new}">Create Faculty Profile</a> -->
-				</p>
-			</div>
+			<a th:href="@{/createSchedule}">Generate Schedule</a>
+		</div>
+		<div class="row well">
+			<th:block th:if="${sf.actionSuccess}">
+			Name:
+			<div th:text="${sf.schedule.name}"></div>
+				<br />
+			</th:block>
+			<th:block th:if="! ${sf.actionSuccess}">
+				<span>Invalid id!</span>
+			</th:block>
 		</div>
 	</div>
 

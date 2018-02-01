@@ -77,10 +77,12 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<th:block th:each="schedule : ${schedules}">
+							<td><a th:href="|/schedule?id=${schedule.id}|" th:text="${schedule.name}"></a></td>
+							<td></td>
+							<td></td>
+							<td th:text="${schedule.status}"></td>
+						</th:block>
 					</tr>
 				</tbody>
 			</table>

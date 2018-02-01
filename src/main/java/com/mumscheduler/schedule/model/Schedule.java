@@ -1,7 +1,5 @@
 package com.mumscheduler.schedule.model;
 
-import java.rmi.server.UID;
-
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,9 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.mumscheduler.entry.model.Entry;
+
 @Entity
 public class Schedule {
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private long id;
 	private String name;
 	// @OneToOne
