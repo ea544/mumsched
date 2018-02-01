@@ -25,12 +25,20 @@ public class FacultyController {
 	
 	@Autowired
 	private CourseService courseService;
+	
+	/**
+	 * change this when the URLs change
+	 * this variable sets the current tab to active in the HTML
+	 */
+	private final String activeTab = "faculty";
+	
 	/**
 	 * Display all the courses
 	 * @return
 	 */
 	@GetMapping("/faculty")
 	public String facultyHome(Model model) {
+		model.addAttribute("activeTab", this.activeTab);
 		Iterable<Faculty> faculty = facultyService.getFacultyList();
 		model.addAttribute("faculties", faculty);
 		return "faculty/faculty-list";
@@ -61,6 +69,7 @@ public class FacultyController {
 	 */
 	@GetMapping("/faculty/new")
 	public String displayNewFacultyForm(Model model) {
+		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
 		model.addAttribute("faculty", new Faculty());
 		return "faculty/faculty-form";
@@ -75,6 +84,7 @@ public class FacultyController {
 	 */
 	@RequestMapping(value="/faculty/{id}", method=RequestMethod.GET)
 	public String displayEditFacultyForm(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
 		model.addAttribute("faculty", facultyService.getFaculty(id));
 		return "faculty/faculty-form";
