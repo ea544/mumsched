@@ -60,35 +60,35 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	</nav>
 	
 	<div class="container">
+		<h1 th:text="${title}">Add title dynamically here</h1>
 		<div class="row well">
 			<div class="col-md-9">
 				<table class="table table-hover">
 					<thead>
 						<tr> 
-							<th>#</th> <th>Block name</th> <th>Capacity</th> <th>Course name</th>
-							<th>Entry name</th> <th>Faculty name</th> <th>Track</th> <th>Action</th> 
+							<th>#</th> <th>FPP number</th> <th>MPP number</th> <th>Entry name</th>
+							<th>End date</th> <th>Start date</th> 
 						</tr>
 					</thead>
 					<tbody> 
-						<th:block th:each="section, iter : ${sections}">
+						<th:block th:each="entry, iter : ${entries}">
 						<tr> 
 							<!-- <th scope="row">1</th> -->
 							<td th:text="${iter.index+1}"></td> 
-							<td th:text="${section.blockName}">Sovello</td> 
-							<td th:text="${section.capacity}">Hildebrand</td> 
-							<td th:text="${section.courseName}">shildebrand@mumsched.tao</td>
-							<td th:text="${section.entryName}">Sovello</td> 
-							<td th:text="${section.facultyName}">Hildebrand</td> 
-							<td th:text="${section.track}">shildebrand@mumsched.tao</td>
-							<td><a th:href="@{'/sectionsUpdate/'+${section.id}+'?update=1'}">Update</a> | 
-							<a th:href="@{'/sectionsDelete/'+${section.id}+'?update=0'}">Delete</a></td>
+							<td th:text="${entry.fppNum}">Sovello</td> 
+							<td th:text="${entry.mppNum}">Hildebrand</td> 
+							<td th:text="${entry.entryName}">shildebrand@mumsched.tao</td>
+							<td th:text="${entry.endDate}">Sovello</td> 
+							<td th:text="${entry.startDate}">Hildebrand</td> 
+							<td><a th:href="@{'/sectionsUpdate/'+${entry.id}+'?update=1'}">Update</a> | 
+							<a th:href="@{'/sectionsDelete/'+${entry.id}+'?update=0'}">Delete</a></td>
 						</tr>
 						</th:block>
 					</tbody>
 				</table>    
 			</div>
 			<div class="col-md-3">
-				<p><a th:href="@{/sections/new}">Create Section</a></p>
+				<p><a th:href="@{/entries/new}">Create Entry</a></p>
 			</div>
 		</div>
 	</div>
