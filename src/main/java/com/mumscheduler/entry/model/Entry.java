@@ -1,12 +1,20 @@
 package com.mumscheduler.entry.model;
 
+
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -20,12 +28,25 @@ public class Entry
 	private int fppNum;
 	private int mppNum;
 	private String entryName;
-	private LocalDate endDate;
-	private LocalDate startDate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date startDate;
+	//private LocalDate endDate;
+	//private LocalDate startDate;
+	
+	//@Temporal(TemporalType.DATE)
+	//private Date dateTest;
 	
 	public Entry() {}
 	
-	public Entry(int fppNum, int mppNum, String entryName, LocalDate endDate, LocalDate startDate) {
+	public Entry(int fppNum, int mppNum, String entryName, Date endDate, Date startDate) {
 		super();
 		this.fppNum = fppNum;
 		this.mppNum = mppNum;
@@ -72,22 +93,22 @@ public class Entry
 	}
 
 
-	public LocalDate getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
 
-	public LocalDate getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 	
