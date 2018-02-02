@@ -17,7 +17,7 @@ public class ScheduleService implements ScheduleServiceInterface {
 	private ScheduleRepository repo;
 
 	@Override
-	public List<Schedule> getSchedules() {
+	public List<Schedule> getScheduleList() {
 		List<Schedule> schedules = new ArrayList<>();
 		repo.findAll().forEach(schedules::add);
 		return schedules;
@@ -30,9 +30,8 @@ public class ScheduleService implements ScheduleServiceInterface {
 	}
 
 	@Override
-	public void saveSchedule() {
-		// TODO Auto-generated method stub
-
+	public Schedule saveSchedule(Schedule schedule) {
+		return repo.save(schedule);
 	}
 
 	@Override

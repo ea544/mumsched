@@ -7,11 +7,11 @@ import com.mumscheduler.schedule.model.ScheduleFacade;
 
 public interface ScheduleServiceInterface {
 
-	public List<Schedule> getSchedules();
+	public List<Schedule> getScheduleList();
 
 	public ScheduleFacade getScheduleById(long id);
 
-	public void saveSchedule();
+	public Schedule saveSchedule(Schedule schedule);
 
 	public void generateSchedule();
 
