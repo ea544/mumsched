@@ -80,7 +80,7 @@
 						<th:block th:each="s : ${schedules}">
 							<td><a th:href="|/s?id=${s.id}|" th:text="${s.name}"></a></td>
 							<td
-								th:text="|${s.entry.entryName}: ${#dates.format(s.entry.startDate, 'MM/yy')} - ${#dates.format(s.entry.endDate, 'MM/yy')}|">
+								th:text="|${s.entry.entryName}: ${#dates.format(s.entry.startDate, 'MM/yyyy')} - ${#dates.format(s.entry.endDate, 'MM/yyyy')}|">
 							</td>
 							<td></td>
 							<td th:text="${s.status}"></td>
