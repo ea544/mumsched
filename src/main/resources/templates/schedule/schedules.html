@@ -77,11 +77,13 @@
 				</thead>
 				<tbody>
 					<tr>
-						<th:block th:each="schedule : ${schedules}">
-							<td><a th:href="|/schedule?id=${schedule.id}|" th:text="${schedule.name}"></a></td>
+						<th:block th:each="s : ${schedules}">
+							<td><a th:href="|/s?id=${s.id}|" th:text="${s.name}"></a></td>
+							<td
+								th:text="|${s.entry.entryName}: ${#dates.format(s.entry.startDate, 'MM/yy')} - ${#dates.format(s.entry.endDate, 'MM/yy')}|">
+							</td>
 							<td></td>
-							<td></td>
-							<td th:text="${schedule.status}"></td>
+							<td th:text="${s.status}"></td>
 						</th:block>
 					</tr>
 				</tbody>
