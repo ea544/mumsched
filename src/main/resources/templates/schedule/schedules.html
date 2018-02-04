@@ -73,19 +73,30 @@
 						<th scope="col">Entry</th>
 						<th scope="col">Blocks</th>
 						<th scope="col">Status</th>
+						<th scope="col">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th:block th:each="s : ${schedules}">
-							<td><a th:href="|/s?id=${s.id}|" th:text="${s.name}"></a></td>
+					<th:block th:each="s : ${schedules}">
+						<tr>
+							<td><a th:href="|/schedule?id=${s.id}|" th:text="${s.name}"></a></td>
 							<td
 								th:text="|${s.entry.entryName}: ${#dates.format(s.entry.startDate, 'MM/yyyy')} - ${#dates.format(s.entry.endDate, 'MM/yyyy')}|">
 							</td>
-							<td></td>
-							<td th:text="${s.status}"></td>
-						</th:block>
-					</tr>
+							<td th:text="|${s.blocks.size()} available|"></td>
+							<td><th:block th:if="${s.status.name() == 'APPROVED'}">
+									<mark th:text="${s.status}" class="text-success"></mark>
+								</th:block> <th:block th:if="! ${s.status.name() == 'APPROVED'}">
+									<mark th:text="${s.status}" class="text-primary"></mark>
+								</th:block></td>
+							<td><th:block th:if="! ${s.status.name() == 'APPROVED'}">
+									<a href="#">Generate</a>
+								</th:block> <th:block th:if="${s.status.name() == 'APPROVED'}">
+									<a th:href="|/s?id=${s.id}|" th:text="View"></a>
+								</th:block><strong> | </strong> <a href="#">Edit</a> <strong> | </strong><a
+								href="#">Delete</a></td>
+						</tr>
+					</th:block>
 				</tbody>
 			</table>
 		</div>
