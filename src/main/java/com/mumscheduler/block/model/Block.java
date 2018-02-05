@@ -1,5 +1,7 @@
 package com.mumscheduler.block.model;
 
+import com.mumscheduler.section.model.Section;
+
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -7,12 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mumscheduler.section.model.Section;
 
 @Entity
 public class Block {
@@ -21,19 +21,15 @@ public class Block {
 	@GeneratedValue
 	private Long id;
 	
-	@NotNull
 	private String name;
 	
-	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startdate;
 	
-	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate enddate;
-	
 	
 	@OneToMany
 	private Set<Section> sections;
