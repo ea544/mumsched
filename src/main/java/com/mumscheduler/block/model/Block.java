@@ -16,17 +16,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Block {
-
+	
 	@Id
 	@GeneratedValue
 	private Long id;
 	
+	//required
 	private String name;
 	
+	//required
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startdate;
 	
+	//required
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate enddate;
