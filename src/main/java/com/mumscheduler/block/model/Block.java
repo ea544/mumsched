@@ -1,15 +1,18 @@
 package com.mumscheduler.block.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mumscheduler.section.model.Section;
 
 @Entity
 public class Block {
@@ -21,13 +24,20 @@ public class Block {
 	@NotNull
 	private String name;
 	
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startdate;
 	
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate enddate;
+	
+	
+	@OneToMany
+	private Set<Section> sections;
+	
 	private Integer serial;
 	
 	public Block() {}
@@ -38,6 +48,14 @@ public class Block {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public Set<Section> getSections() {
+		return sections;
+	}
+
+	public void setSections(Set<Section> sections) {
+		this.sections = sections;
+	}
+
 	public String getName() {
 		return name;
 	}

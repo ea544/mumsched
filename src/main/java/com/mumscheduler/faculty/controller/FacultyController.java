@@ -1,5 +1,6 @@
 package com.mumscheduler.faculty.controller;
 
+import com.mumscheduler.block.service.BlockServiceInterface;
 import com.mumscheduler.course.service.CourseService;
 import com.mumscheduler.faculty.model.Faculty;
 import com.mumscheduler.faculty.service.FacultyService;
@@ -22,6 +23,9 @@ public class FacultyController {
 	
 	@Autowired
 	private FacultyService facultyService;
+	
+	@Autowired
+	private BlockServiceInterface blockService;
 	
 	@Autowired
 	private CourseService courseService;
@@ -71,6 +75,7 @@ public class FacultyController {
 	public String displayNewFacultyForm(Model model) {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
+		model.addAttribute("allBlocks", blockService.getBlockList());
 		model.addAttribute("faculty", new Faculty());
 		return "faculty/faculty-form";
 	}
@@ -87,6 +92,7 @@ public class FacultyController {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
 		model.addAttribute("faculty", facultyService.getFaculty(id));
+		model.addAttribute("allBlocks", blockService.getBlockList());
 		return "faculty/faculty-form";
 	}
 	
@@ -96,6 +102,6 @@ public class FacultyController {
 	 */
 	@RequestMapping(value="/faculty/{id}", method=RequestMethod.POST)
 	public String updateFaculty() {
-		return "redirect:/faculty";
+		return "redirect:/faculty-list";
 	}
 }

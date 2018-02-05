@@ -75,16 +75,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				<table class="table table-hover">
 					<thead>
 						<tr> 
-							<th>#</th> <th>Entry</th><th>Block Name</th> <th>Block Number</th> 
+							<th>#</th><th>Block Name</th> <th>Block Number</th> 
 							<th>Start Date</th><th>End Date</th><th>Action</th> 
 						</tr>
 					</thead>
 					<tbody> 
-						<th:block th:each="block : ${blocks}">
+						<th:block th:each="block, idx : ${blocks}">
 						<tr> 
-							<th scope="row">1</th> 
-							<td></td>
-							<!-- <td th:text="${block.entry}">January 2018</td> --> 
+							<th scope="row" th:text="${idx.count}">1</th>
 							<td th:text="${block.name}">March 2018</td> 
 							<td th:text="${block.serial}">2</td>
 							<td th:text="${block.startdate}">February 26, 2018</td>
