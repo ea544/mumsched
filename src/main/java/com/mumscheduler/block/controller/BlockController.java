@@ -2,6 +2,7 @@ package com.mumscheduler.block.controller;
 
 import com.mumscheduler.block.model.Block;
 import com.mumscheduler.block.service.BlockServiceInterface;
+import com.mumscheduler.block.validator.BlockValidator;
 import com.mumscheduler.section.service.SectionServiceInterface;
 
 import javax.validation.Valid;
@@ -25,6 +26,15 @@ public class BlockController {
 
 	@Autowired
 	private SectionServiceInterface sectionService;
+	
+	@Autowired
+	private BlockValidator validator;
+	
+//	@InitBinder
+//	protected void initBinder(WebDataBinder binder) {
+//		binder.addValidators(validator);
+//	}
+	
 	/**
 	 * change this when the URLs change this variable sets the current tab to active
 	 * in the HTML
@@ -51,6 +61,8 @@ public class BlockController {
 	 */
 	@PostMapping("/blocks")
 	public String createNewBlock(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult) {
+		
+		validator.validate(block, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "block/block-form";
 		}
