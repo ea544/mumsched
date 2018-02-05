@@ -2,7 +2,6 @@ package com.mumscheduler.course.controller;
 
 import com.mumscheduler.course.model.Course;
 import com.mumscheduler.course.service.CourseService;
-import com.mumscheduler.faculty.service.FacultyService;
 
 import java.util.List;
 
@@ -24,9 +23,6 @@ public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
-	
-	@Autowired
-	private FacultyService facultyService;
 	
 	/**
 	 * change this when the URLs change
@@ -68,6 +64,7 @@ public class CourseController {
 	public String displayNewCourseForm(Model model) {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("course", new Course());
+		model.addAttribute("allPrerequisites", courseService.getCourseList());
 		return "course/course-form";
 	}
 	
@@ -78,8 +75,8 @@ public class CourseController {
 	@RequestMapping(value="/courses/{id}", method=RequestMethod.GET)
 	public String displayEditCourseForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("activeTab", this.activeTab);
-		model.addAttribute("allFaculty", facultyService.getFacultyList());
 		model.addAttribute("course", courseService.getCourse(id));
+		model.addAttribute("allPrerequisites", courseService.getCoursePrequisites(id));
 		return "course/course-form";
 	}
 	
