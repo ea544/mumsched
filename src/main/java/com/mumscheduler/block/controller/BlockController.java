@@ -2,7 +2,7 @@ package com.mumscheduler.block.controller;
 
 import com.mumscheduler.block.model.Block;
 import com.mumscheduler.block.service.BlockService;
-import com.mumscheduler.entry.service.EntryService;
+import com.mumscheduler.section.service.SectionServiceInterface;
 
 import javax.validation.Valid;
 
@@ -24,8 +24,7 @@ public class BlockController {
 	private BlockService blockService;
 	
 	@Autowired
-	private EntryService entryService;
-	
+	private SectionServiceInterface sectionService;
 	/**
 	 * change this when the URLs change
 	 * this variable sets the current tab to active in the HTML
@@ -67,7 +66,7 @@ public class BlockController {
 	@GetMapping("/blocks/new")
 	public String getNewBlockForm(Model model) {
 		model.addAttribute("activeTab", this.activeTab);
-		model.addAttribute("entries", entryService.getEntryList());
+		model.addAttribute("allSections", sectionService.getSectionList());
 		model.addAttribute("block", new Block());
 		return "block/block-form";
 	}
