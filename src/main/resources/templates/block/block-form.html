@@ -86,7 +86,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				<form action="#" th:action="@{/blocks}" th:object="${block}" method="post">
 				  <div class="form-group">
 				    <label for="serial">Block number</label>
-				    <input type="text" th:field="*{serial}" class="form-control" id="serial" placeholder="1" />
+				    <input type="number" th:field="*{serial}" class="form-control" id="serial" placeholder="1" />
 				  </div>
 				  <th:block th:if="${id != null}">
 				  	<input type="hidden" th:field="*{id}" />
@@ -116,17 +116,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 	                </div>
 				    <div class="help-block with-errors" th:if="${#fields.hasErrors('enddate')}" th:errors="*{enddate}"></div>
 				  </div>
-				  <!-- 
 				  <div class="form-group">
-				    <label for="entry">Entry:</label>
-				    <select th:field="*{entry}" class="form-control" id="entry">
+				    <label for="sections">Sections:</label>
+				    <select th:field="*{sections}" th:multiple="multiple" class="form-control" id="sections">
 				      <option
-				      	th:each="entry: ${entries}" 
-				      	th:value="${entry.id}"
-				      	th:text="${entry}">January 2018</option>
+				      	th:each="section: ${allSections}" 
+				      	th:value="${section.id}"
+				      	th:text="${section}">Machine Learning</option>
 				    </select>
 				  </div>
-				   -->
 				  <div class="form-group text-right">
 				  	<label for="submitButton">
 				  		<a th:href="@{/blocks}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>

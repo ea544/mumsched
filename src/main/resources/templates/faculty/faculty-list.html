@@ -79,9 +79,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 						</tr>
 					</thead>
 					<tbody> 
-						<th:block th:each="faculty : ${faculties}">
+						<th:block th:each="faculty, idx : ${faculties}">
 						<tr> 
-							<th scope="row">1</th> 
+							<th scope="row" th:text="${idx.count}">1</th> 
 							<td th:text="${faculty.firstname}">Sovello</td> 
 							<td th:text="${faculty.lastname}">Hildebrand</td> 
 							<td th:text="${faculty.email}">shildebrand@mumsched.tao</td>

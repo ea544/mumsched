@@ -33,5 +33,10 @@ public class CourseService implements CourseServiceInterface {
 	public List<Course> getCourseList() {
 		return courseRepository.findAll();
 	}
+	
+	@Override
+	public List<Course> getCoursePrequisites(Long id){
+		return courseRepository.getCoursePrequisites(id);
+	}
 
 }
