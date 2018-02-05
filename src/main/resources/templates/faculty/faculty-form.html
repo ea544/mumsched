@@ -94,7 +94,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				    <label for="course">Preferred Blocks:</label>
 				    <select th:field="*{blocks}" th:multiple="multiple" class="form-control" id="blocks">
 				      <option
-				      	th:each="kozi: ${allBlocks}" 
+				      	th:each="block: ${allBlocks}" 
 				      	th:value="${block.id}"
 				      	th:text="${block}">January Block, 2018-01-15</option>
 				    </select>

@@ -92,6 +92,7 @@ public class FacultyController {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
 		model.addAttribute("faculty", facultyService.getFaculty(id));
+		model.addAttribute("allBlocks", blockService.getBlockList());
 		return "faculty/faculty-form";
 	}
 	
@@ -101,6 +102,6 @@ public class FacultyController {
 	 */
 	@RequestMapping(value="/faculty/{id}", method=RequestMethod.POST)
 	public String updateFaculty() {
-		return "redirect:/faculty";
+		return "redirect:/faculty-list";
 	}
 }

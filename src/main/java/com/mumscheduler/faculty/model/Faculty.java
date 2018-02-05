@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Faculty extends User{
 
-	@ManyToMany(mappedBy="faculty")
+	@ManyToMany
 	private Set<Course> courses;
 	
 	@ManyToMany
