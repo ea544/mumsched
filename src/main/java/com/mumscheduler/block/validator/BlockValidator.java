@@ -3,14 +3,12 @@ package com.mumscheduler.block.validator;
 import com.mumscheduler.block.model.Block;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-@PropertySource("classpath:i18n/validation/block.properties")
 @Component
 public class BlockValidator implements Validator {
 
