@@ -67,7 +67,6 @@ public class CourseController {
 	@GetMapping("/courses/new")
 	public String displayNewCourseForm(Model model) {
 		model.addAttribute("activeTab", this.activeTab);
-		model.addAttribute("allFaculty", facultyService.getFacultyList());
 		model.addAttribute("course", new Course());
 		return "course/course-form";
 	}

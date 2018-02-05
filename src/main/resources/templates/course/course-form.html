@@ -73,7 +73,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				  </th:block>
 				  <div class="form-group">
 				    <label for="courseLevel">Course Level</label>
-				    <input type="text" th:field="*{level}" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
+				    <input type="number" th:field="*{level}" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
 				    <div class="help-block with-errors" th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></div>
 				  </div>
 				  <div class="form-group">
@@ -81,14 +81,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				    <input type="text" th:field="*{code}" class="form-control" id="courseCode" placeholder="e.g. ML, SW" />
 				    <div class="help-block with-errors" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
 				  </div>
-				  <div class="form-group">
-				    <label for="faculty">Faculty:</label>
-				    <select th:field="*{faculty}" th:multiple="multiple" class="form-control" id="faculty">
-				      <option
-				      	th:each="fac: ${allFaculty}" 
-				      	th:value="${fac.id}"
-				      	th:text="${fac}">Sovello</option>
-				    </select>
+				 <div class="form-group">
+				    <label for="courseCode">Maximum Capacity</label>
+				    <input type="number" th:field="*{capacity}" class="form-control" id="courseCapacity" placeholder="90" />
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
 				  </div>
 				  <div class="form-group text-right">
 				  	<label for="submitButton">
