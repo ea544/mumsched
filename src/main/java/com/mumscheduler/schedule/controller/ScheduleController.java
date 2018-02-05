@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mumscheduler.entry.service.EntryServiceInterface;
 import com.mumscheduler.schedule.model.Schedule;
+import com.mumscheduler.schedule.model.ScheduleFacade;
 import com.mumscheduler.schedule.service.ScheduleServiceInterface;
 
 @Controller
@@ -29,12 +30,13 @@ public class ScheduleController {
 		return "schedule/schedules";
 	}
 
-//	@GetMapping(path = "/schedule", params = { "year", "entry" })
-//	public String getSchedule(@RequestParam String year, @RequestParam String entry) {
-//		return "schedule/schedule";
-//	}
+	// @GetMapping(path = "/schedule", params = { "year", "entry" })
+	// public String getSchedule(@RequestParam String year, @RequestParam String
+	// entry) {
+	// return "schedule/schedule";
+	// }
 
-	@GetMapping(path = "/schedule", params= {"id"})
+	@GetMapping(path = "/schedule", params = { "id" })
 	public String getSchedule(Model model, @RequestParam long id) {
 		model.addAttribute("sf", scheduleService.getScheduleById(id));
 		return "schedule/schedule";
@@ -45,14 +47,21 @@ public class ScheduleController {
 		model.addAttribute("entries", entryService.getEntryList());
 		return "schedule/createSchedule";
 	}
-	
+
 	@PostMapping("/schedule")
 	public String createSchedule(@Valid @ModelAttribute("newSchedule") Schedule schedule, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "redirect:/createSchedule";
 		}
 		scheduleService.saveSchedule(schedule);
 		return "redirect:/schedules";
 	}
-	
+
+	@GetMapping(path = "/generateSchedule", params = { "id" })
+	public String generateSchedule(Model model, @RequestParam long id) {
+		ScheduleFacade sf = scheduleService.generateSchedule(id);
+
+		return "redirect: schedule?id=" + id;
+	}
+
 }

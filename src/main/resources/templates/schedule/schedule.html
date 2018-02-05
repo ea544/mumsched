@@ -77,8 +77,8 @@
 			</th:block>
 		</div>
 
-		<th:block
-			th:if="${sf.actionSuccess and sf.schedule.blocks.size() &gt; 0}">
+		<!-- and sf.schedule.entry.blocks.size() &gt; 0 -->
+		<th:block th:if="${sf.actionSuccess and false}">
 			<div class="row well">
 				<strong
 					th:text="|${sf.schedule.entry.entryName}: ${#dates.format(sf.schedule.entry.startDate, 'MM/yyyy')} - ${#dates.format(sf.schedule.entry.endDate, 'MM/yyyy')}|">
@@ -92,7 +92,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<th:block th:each="b : ${sf.schedule.blocks}">
+						<th:block th:each="b : ${sf.schedule.entry.blocks}">
 							<tr>
 								<td
 									th:text="|${b.name}: ${#dates.format(b.startdate, 'MM/yyyy')} - ${#dates.format(b.enddate, 'MM/yyyy')}|">

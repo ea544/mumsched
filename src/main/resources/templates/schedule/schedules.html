@@ -83,7 +83,8 @@
 							<td
 								th:text="|${s.entry.entryName}: ${#dates.format(s.entry.startDate, 'MM/yyyy')} - ${#dates.format(s.entry.endDate, 'MM/yyyy')}|">
 							</td>
-							<td th:text="|${s.blocks.size()} available|"></td>
+							<!-- th:text="|${s.entry.blocks.size()} available|" -->
+							<td></td>
 							<td><th:block th:if="${s.status.name() == 'APPROVED'}">
 									<mark th:text="${s.status}" class="text-success"></mark>
 								</th:block> <th:block th:if="! ${s.status.name() == 'APPROVED'}">

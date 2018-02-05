@@ -1,6 +1,7 @@
 package com.mumscheduler.schedule.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,7 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.mumscheduler.block.model.Block;
 import com.mumscheduler.entry.model.Entry;
-import com.mumscheduler.section.model.Section;
 
 @Entity
 public class Schedule {
@@ -31,10 +31,7 @@ public class Schedule {
 	private Entry entry;
 	@ElementCollection
 	@OneToMany
-	private List<Block> blocks;
-	@ElementCollection
-	@OneToMany
-	private List<Section> sections;
+	private Set<Block> blocks;
 
 	@Enumerated(EnumType.STRING)
 	private ScheduleStatus status = ScheduleStatus.DRAFT;
@@ -63,20 +60,12 @@ public class Schedule {
 		this.entry = entry;
 	}
 
-	public List<Block> getBlocks() {
+	public Set<Block> getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocks(List<Block> blocks) {
+	public void setBlocks(Set<Block> blocks) {
 		this.blocks = blocks;
-	}
-
-	public List<Section> getSections() {
-		return sections;
-	}
-
-	public void setSections(List<Section> sections) {
-		this.sections = sections;
 	}
 
 	public ScheduleStatus getStatus() {

@@ -1,7 +1,9 @@
 package com.mumscheduler.schedule.service;
 
 import java.util.List;
+import java.util.Set;
 
+import com.mumscheduler.block.model.Block;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
 
@@ -13,7 +15,7 @@ public interface ScheduleServiceInterface {
 
 	public Schedule saveSchedule(Schedule schedule);
 
-	public void generateSchedule();
+	public ScheduleFacade generateSchedule(long id);
 
 	public void checkUpdateRequirements(Schedule schedule);
 
@@ -23,11 +25,11 @@ public interface ScheduleServiceInterface {
 
 	public void removeScheduleById(long id);
 
-	public void checkBlockRequirements();
+	public ScheduleFacade checkBlockRequirements(ScheduleFacade sf);
 
-	public void addBlocksToSchedule(Schedule schedule);
+	public ScheduleFacade addBlocksToSchedule(ScheduleFacade sf, Set<Block> blocks);
 
-	public void checkSectionRequirements(/* Block block */);
-	
+	public ScheduleFacade checkSectionRequirements(ScheduleFacade sf);
+
 	public ScheduleFacade validateSchedule(Schedule schedule);
 }
