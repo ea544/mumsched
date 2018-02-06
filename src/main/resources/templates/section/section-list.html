@@ -66,8 +66,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 				<table class="table table-hover">
 					<thead>
 						<tr> 
-							<th>#</th> <th>Block name</th> <th>Capacity</th> <th>Course name</th>
-							<th>Entry name</th> <th>Faculty name</th> <th>Track</th> <th>Action</th> 
+							<th>#</th> 
+							<th>Capacity</th> 
+							<th>Course name</th>
+							<th>Faculty name</th>
+							<th>Action</th> 
 						</tr>
 					</thead>
 					<tbody> 
@@ -75,12 +78,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 						<tr> 
 							<!-- <th scope="row">1</th> -->
 							<td th:text="${iter.index+1}"></td> 
-							<td th:text="${section.blockName}">Sovello</td> 
 							<td th:text="${section.capacity}">Hildebrand</td> 
-							<td th:text="${section.courseName}">shildebrand@mumsched.tao</td>
-							<td th:text="${section.entryName}">Sovello</td> 
-							<td th:text="${section.facultyName}">Hildebrand</td> 
-							<td th:text="${section.track}">shildebrand@mumsched.tao</td>
+							<td th:text="${section.course}">shildebrand@mumsched.tao</td>
+							<td th:text="${section.faculty}">Hildebrand</td> 
 							<td><a th:href="@{'/sectionsUpdate/'+${section.id}+'?update=1'}">Update</a> | 
 							<a th:href="@{'/sectionsDelete/'+${section.id}+'?update=0'}">Delete</a></td>
 						</tr>

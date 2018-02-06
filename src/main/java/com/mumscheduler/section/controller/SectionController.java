@@ -4,13 +4,18 @@ import com.mumscheduler.course.model.Course;
 import com.mumscheduler.course.service.CourseService;
 import com.mumscheduler.section.model.Section;
 import com.mumscheduler.section.service.SectionService;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.mumscheduler.faculty.model.Faculty;
 import com.mumscheduler.faculty.service.FacultyService;
+
+
+
 
 //import java.util.function.Consumer;
 
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,23 +57,40 @@ public class SectionController {
 	}
 	
 	/**
-	 * Process creating a new course
+	 * Process creating a new section
 	 * Return to the courses form after a course has been saved
 	 * @return
 	 */
 	@PostMapping("/sections")
-	public String createNew(@Valid @ModelAttribute("section")  Section section, BindingResult bindingResult) {
+	public String createNew(@Valid @ModelAttribute("section")  Section section, BindingResult bindingResult, @PathVariable("id") Long id, Model model) {
 		if(bindingResult.hasErrors()) {
 			return "section/section-form";
 		}
-		sectionService.save(section);
+		
+		String error;
+		System.out.println(""+section.getCourse());
+		try
+		{
+			
+			sectionService.save(section);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			error = "Course name and Faculty name are already exist!";
+			model.addAttribute("error", error);
+			//return "section/section-form";
+			System.out.println( section.getId());
+			System.out.println( id);
+			return "redirect:/sectionsUpdate/" + id;
+		}
 		return "redirect:/sections";
 	}
 	
 	/**
 	 * Display an empty form to create a new course
 	 * 
-	 * add all courses to the form, to be displayed in  courses 
+	 * add all section to the form, to be displayed in  sections 
 	 * preferences
 	 * to further decouple this, we could call using a webservice
 	 * 
@@ -87,6 +109,7 @@ public class SectionController {
 		model.addAttribute("title", title);
 		
 		courses.forEach((c) -> System.out.println(c.getId()+" "+c.getName()));
+		faculties.forEach((f) -> System.out.println(f.getFirstname()+" "+f.getLastname()));
 		/*for(Course c : courses)
 		{
 			System.out.println(c.getId()+" "+c.getName());
@@ -117,7 +140,7 @@ public class SectionController {
 		model.addAttribute("courses", courses);
 		model.addAttribute("title", title);
 		
-		System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
+		//System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
 		
 		return "section/section-form";
 	}

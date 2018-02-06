@@ -1,32 +1,42 @@
 package com.mumscheduler.section.model;
 
 import com.mumscheduler.course.model.Course;
-
-import java.util.Set;
+import com.mumscheduler.faculty.model.Faculty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
-
 @Entity
+@Table(
+	    name="Section", 
+	    uniqueConstraints=
+	        @UniqueConstraint(columnNames={"course_id", "faculty_user_id"})
+	)
 public class Section {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	//@NotNull
+	//private Block block; // Block
+	
+	
 	@NotNull
-	private String blockName;
 	private int capacity;
-	private String courseName;
-	private String entryName;
-	private String facultyName;
-	private String track;
+	@NotNull(message="Course cannot be null")
+	@OneToOne
+	private Course course;
+	//private Entry entry;
+	@OneToOne
+	private Faculty faculty; 
+	//private String track;
 	
 	
 	//@ManyToMany(mappedBy="section")
@@ -34,14 +44,11 @@ public class Section {
 	
 	public Section() {}
 
-	public Section(String blockName, int capacity, String courseName, String entryName, String facultyName, String track) {
+	public Section(int capacity, Course course, Faculty faculty) {
 		super();
-		this.blockName = blockName;
 		this.capacity = capacity;
-		this.courseName = courseName;
-		this.entryName = entryName;
-		this.facultyName = facultyName;
-		this.track = track;
+		this.course = course;
+		this.faculty = faculty;
 	}
 
 	public Long getId() {
@@ -52,14 +59,6 @@ public class Section {
 		this.id = id;
 	}
 
-	public String getBlockName() {
-		return blockName;
-	}
-
-	public void setBlockName(String blockName) {
-		this.blockName = blockName;
-	}
-
 	public int getCapacity() {
 		return capacity;
 	}
@@ -68,44 +67,20 @@ public class Section {
 		this.capacity = capacity;
 	}
 
-	public String getCourseName() {
-		return courseName;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
-	public String getEntryName() {
-		return entryName;
+	public Faculty getFaculty() {
+		return faculty;
 	}
 
-	public void setEntryName(String entryName) {
-		this.entryName = entryName;
+	public void setFaculty(Faculty faculty) {
+		this.faculty = faculty;
 	}
-
-	public String getFacultyName() {
-		return facultyName;
-	}
-
-	public void setFacultyName(String facultyName) {
-		this.facultyName = facultyName;
-	}
-
-	public String getTrack() {
-		return track;
-	}
-
-	public void setTrack(String track) {
-		this.track = track;
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-
-	
 	
 }

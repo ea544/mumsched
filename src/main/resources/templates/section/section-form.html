@@ -65,56 +65,31 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 			<div class="span4 offset4 well">
 				<form action="#" th:action="@{/sections}" th:object="${section}" method="post">
-				  <div class="form-group">
-				    <label for="blockName">Block name</label>
-				    <input type="text" th:field="*{blockName}" class="form-control" id="blockName" placeholder="Block name" />
-				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
+				  <th:block th:if="${error !=null}"> <h4 th:text="${error}"> Error </h4> </th:block>>
 				  <div class="form-group">
 				    <label for="capacity">Capacity</label>
 				    <input type="text" th:field="*{capacity}" class="form-control" id="capacity" placeholder="Capacity" />
 				    <div class="help-block with-errors" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
 				  </div>
 				  <div class="form-group">
-				    <label for="courseName">Course Name</label>
-				    <!-- <input type="text" th:field="*{courseName}" class="form-control" id="courseName" placeholder="Course name" /> -->
-				    <select class="form-control" th:field="*{courseName}" id="courseOrder" name="courseOrder"> 
-				    		<option value="" >Select course</option>
-				    		<option id="courseName" th:each="course : ${courses}" th:value="${course.getName()}" th:text="${course.getName()}"></option>
-				    </select>
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
+				  	<label for="courseName">Course Name</label>
+					    <select class="form-control" th:field="*{course}" id="courseOrder" name="courseOrder"> 
+					    		<option value="" >Select course</option>
+					    		<option id="courseName" th:each="course : ${courses}" th:value="${course.id}" th:text="${course.getName()}"></option>
+					    </select>
+				    
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
 				  </div>
-				  <!--
-				  <div class="form-group">
-				    <label for="course">Course:</label>
-				    <select th:field="*{courses}" th:multiple="multiple" class="form-control" id="course">
-				      <option
-				      	th:each="kozi: ${allCourses}" 
-				      	th:value="${kozi.id}"
-				      	th:text="${kozi}">Machine Learning</option>
-				    </select>
-				  </div>
-				  -->
-				  <div class="form-group">
-				    <label for="entryName">Entry Name</label>
-				    <input type="text" th:field="*{entryName}" class="form-control" id="entryName" placeholder="Entry name" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('entryName')}" th:errors="*{entryName}"></div>
-				  </div>
+				  <th:block th:if="${id != null}">
+				  	<input type="hidden" th:field="*{id}" />
+				  </th:block>
 				  <div class="form-group">
 				    <label for="facultyName">Faculty Name</label>
-				    <!-- <input type="text" th:field="*{facultyName}" class="form-control" id="facultyName" placeholder="Faculty name" /> -->
-				    <select class="form-control" id="facultyOrder" th:field="*{facultyName}"> 
+				    <select class="form-control" id="facultyOrder" th:field="*{faculty}"> 
 				    		<option value="" >Select faculty</option>
-				    		<option th:each="faculty : ${faculties}" th:value="${faculty.getFirstname()}+' '+${faculty.getLastname()}" th:text="${faculty.getFirstname()}+' '+${faculty.getLastname()}"></option>
+				    		<option th:each="faculty : ${faculties}" th:value="${faculty.id}" th:text="${faculty.getFirstname()}+' '+${faculty.getLastname()}"></option>
 				    </select>
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('facultyName')}" th:errors="*{facultyName}"></div>
-				  </div>
-				  <div class="form-group">
-				    <label for="track">Track</label>
-				    <input type="text" th:field="*{track}" class="form-control" id="track" placeholder="track" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('track')}" th:errors="*{track}"></div>
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('faculty')}" th:errors="*{faculty}"></div>
 				  </div>
 				  <div class="form-group text-right">
 				  	<label for="submitButton">

@@ -27,24 +27,30 @@ public class SectionService implements SectionServiceInterface {
 	}
 	
 
-	@Override
+	/*@Override
 	public Section getSection(String blockName) {
 		return sectionRepository.getSectionByBlockName(blockName);
-	}
+	}*/
 
 	@Override
 	public Section getSection(Long id) {
-		return sectionRepository.getOne(id);
+		return sectionRepository.findOne(id);
 	}
 	
-	@Override
+	/*@Override
 	public Iterable<Section> findSectionById(Long id) {
-		return sectionRepository.findById(id);
-	}
+		return sectionRepository.findAll(id);
+	}*/
 
 	@Override
 	public List<Section> getSectionList() {
-		return sectionRepository.findAll();
+		return (List<Section>)sectionRepository.findAll();
+	}
+
+	@Override
+	public Iterable<Section> findSectionById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
