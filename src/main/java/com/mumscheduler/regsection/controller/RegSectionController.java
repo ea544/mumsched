@@ -1,3 +1,4 @@
+
 package com.mumscheduler.regsection.controller;
 
 import java.util.List;
@@ -33,10 +34,10 @@ public class RegSectionController {
 
 
 	@GetMapping("/regsection")
-	public String sectionHome(Model model) {
-		
+	public String sectionHome(Model model) {		
 		return "regsection/regsection";
 	}
+	
 	
 	@RequestMapping(value="/regsection/getsectionbyid", method = RequestMethod.GET)
 	public @ResponseBody
