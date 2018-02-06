@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mumscheduler.block.service.BlockService;
 import com.mumscheduler.dto.Response;
-import com.mumscheduler.regsection.model.RegSection;
+import com.mumscheduler.entry.model.Entry;
+import com.mumscheduler.entry.service.EntryService;
 import com.mumscheduler.regsection.service.RegSectionService;
 import com.mumscheduler.section.model.Section;
 import com.mumscheduler.section.service.SectionService;
@@ -30,11 +32,26 @@ public class RegSectionController {
 	private RegSectionService regSectionService;	
 	
 	@Autowired
+	private EntryService entryService;
+	
+	@Autowired
 	private SectionService sectionService;
+	
+	@Autowired
+	private BlockService blockService;
 
 
 	@GetMapping("/regsection")
-	public String sectionHome(Model model) {		
+	public String sectionHome(Model model) {	
+		/*
+		 * TODO: use Entry ID from Student oject
+		 */
+		Entry entry = entryService.getEntry((long) 3);
+		
+		System.out.println(entry.getBlocks().size()+ "**************************************************************************");
+		model.addAttribute("entry", entry);
+		model.addAttribute("blocks",entry.getBlocks());		
+		
 		return "regsection/regsection";
 	}
 	
@@ -58,12 +75,12 @@ public class RegSectionController {
         return Response.ok(sectionList, HttpStatus.OK.value(), HttpStatus.OK.name());
     }
 	
-	 @RequestMapping(value="/regsection", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	/* @RequestMapping(value="/regsection", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody
 	 Response<RegSection> addRegSection(@Valid @RequestBody RegSection regSection) {
 	        System.out.println(regSection);	        
 	        return Response.ok(null, HttpStatus.OK.value(), HttpStatus.OK.name());
 	      
-	    }
+	    }*/
 	
 }

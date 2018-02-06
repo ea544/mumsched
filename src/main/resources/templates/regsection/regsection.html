@@ -63,7 +63,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		<div class="row">
 			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 			<div class="span4 offset4 well">
-				<form>
+				<form th:action="@{/regsections}" th:object="${entry}" method="post">
 				
 				<div class="form-group">
 				  	<label for="header">
@@ -71,11 +71,37 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 				  	</label>
 				  </div>
 				  
+				 <!--  <div class="form-group">
+				    <label for="blocks">Block:</label>
+				    <select th:field="*{blocks}" th:multiple="multiple" class="form-control" id="blocks">
+				      <option
+				      	th:each="blocks: ${allBlocks}" 
+				      	th:value="${blocks.id}"
+				      	th:text="${blocks}">January</option>
+				    </select>
+				  </div>
+				   -->
+				  <!-- <div class="form-group">
+				    <label for="prerequisites">Prerequisites:</label>
+				    <select th:field="*{prerequisites}" th:multiple="multiple" class="form-control" id="prerequisites">
+				      <option
+				      	th:each="prerequisite: ${allPrerequisites}" 
+				      	th:value="${prerequisite.id}"
+				      	th:text="${prerequisite}">Machine Learning</option>
+				    </select>
+				  </div> -->
+				  
 				  <div class="form-group">
 				    <div class="form-group">
 				    <label for="selectBlock">Select Block</label>
-				    <select class="form-control" id="selectBlock">
-				      <!-- insert the list of data from JSON object -->
+				    <select th:field="*{blocks}" class="form-control" id="selectBlock">
+				      <!--  insert the list of data from JSON object -->
+				      <option value="0">Select the block</option>
+				      <option
+				        th:each = "b: ${blocks}" 
+				      	th:value="${b.id}"
+				      	th:text="${b.name}">
+				      </option>
 				    </select>
 				  </div>
 				  </div>
@@ -151,75 +177,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		<script th:src="@{/js/mumsched.js}"></script>
 		
 		<script>
-		$.ajax({
-	        url: "/regsection/getsectionbyid",
-	        type: 'GET',
-	        dataType: 'json', // added data type
-	        success: function(res) {
-	        	
-	        	$(res.data).each(function()
-	        			 {
-	        			     /* alert(this.value);
-	        			     alert(this.label); */
-	        			     //this refers to the current item being iterated over
-	        			     var option = $('<option />');
-	        			     option.attr('value', this.blockName).text(this.blockName);
-	        			     $('#selectBlock').append(option);
-	        			 });
-	        }
-	    });
 		
-		$('#selectBlock').change(function(){ 
-			$.ajax({
-		        url: "/regsection/getcoursebyblockname/"+ $("#selectBlock").val(),
-		        type: 'GET',
-		        dataType: 'json', // added data type
-		        success: function(res) {
-		        	console.log(res);
-		        	$(res.data).each(function()
-		        			 {
-		        			     /* alert(this.value);
-		        			     alert(this.label); */
-		        			     //this refers to the current item being iterated over
-		        			     var option = $('<option />');
-		        			     option.attr('value', this.courseName).text(this.courseName);
-		        			     $('#selectCourse').append(option);
-		        			 });
-		        }
-		    });
-		});
 		
-		$('#btnRegSectionSubmit').click(function(){
-			let blkName = $("#selectBlock").val();
-			let courseName = $("#selectCourse").val();
-			
-			if(blkName.length === 0 || courseName.length === 0){
-				alert("Invalid data");
-				return;
-			}
-			
-			let regData = {
-					block:blkName,
-					course:courseName
-			};
-			
-			regData = JSON.stringify(regData)
-			console.log(regData)
-			
-			$.ajax({
-		        url: "/regsection",
-		        type: 'post',
-		        data: regData,
-		        contentType: 'application/json',
-		        dataType: 'json', // added data type
-		        success: function(res) {
-		        	console.log(res);
-		        },
-		        error: function() { 
-		        	alert("Something went wrong"); 
-		        }
-		    });
-		})
 		</script>
 	
 	</body>
