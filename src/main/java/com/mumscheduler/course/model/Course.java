@@ -1,15 +1,12 @@
 package com.mumscheduler.course.model;
 
-import com.mumscheduler.faculty.model.Faculty;
-
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Course {
@@ -20,23 +17,16 @@ public class Course {
 	
 	private String name;
 	
-	@NotNull
+	
 	private String code;
 	
-	@NotNull
 	private Integer level;
 	
-	@ManyToMany
-	private Set<Faculty> faculty;
+	private Integer capacity;	
+
+	@OneToMany
+	private Set<Course> prerequisites;
 	
-	public Set<Faculty> getFaculty() {
-		return faculty;
-	}
-
-	public void setFaculty(Set<Faculty> faculty) {
-		this.faculty = faculty;
-	}
-
 	public Course() {}
 
 	public Course(String name, String code, Integer level) {
@@ -52,6 +42,22 @@ public class Course {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Set<Course> getPrerequisites() {
+		return prerequisites;
+	}
+
+	public void setPrerequisites(Set<Course> prerequisites) {
+		this.prerequisites = prerequisites;
+	}
+
+	public Integer getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
 	}
 
 	public String getName() {

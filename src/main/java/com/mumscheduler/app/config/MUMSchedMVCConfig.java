@@ -61,7 +61,8 @@ public class MUMSchedMVCConfig extends WebMvcConfigurerAdapter {
 	                                               new ReloadableResourceBundleMessageSource();
 	    messageSource.setBasenames("classpath:i18n/entitylabels/formfields", 
 	                               "classpath:i18n/sitelabels/sitelabels",
-	                               "classpath:i18n/validation/validation");
+	                               "classpath:i18n/validation/validation",
+	                               "classpath:i18n/validation/block");
 	    messageSource.setCacheSeconds(0); 
 	    messageSource.setDefaultEncoding("UTF-8");
 	    return messageSource;

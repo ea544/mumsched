@@ -1,8 +1,9 @@
 package com.mumscheduler.faculty.controller;
 
-import com.mumscheduler.course.service.CourseService;
+import com.mumscheduler.block.service.BlockServiceInterface;
+import com.mumscheduler.course.service.CourseServiceInterface;
 import com.mumscheduler.faculty.model.Faculty;
-import com.mumscheduler.faculty.service.FacultyService;
+import com.mumscheduler.faculty.service.FacultyServiceInterface;
 
 import javax.validation.Valid;
 
@@ -19,21 +20,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class FacultyController {
-	
+
 	@Autowired
-	private FacultyService facultyService;
-	
+	private FacultyServiceInterface facultyService;
+
 	@Autowired
-	private CourseService courseService;
-	
+	private BlockServiceInterface blockService;
+
+	@Autowired
+	private CourseServiceInterface courseService;
+
 	/**
-	 * change this when the URLs change
-	 * this variable sets the current tab to active in the HTML
+	 * change this when the URLs change this variable sets the current tab to active
+	 * in the HTML
 	 */
 	private final String activeTab = "faculty";
-	
+
 	/**
 	 * Display all the courses
+	 * 
 	 * @return
 	 */
 	@GetMapping("/faculty")
@@ -43,59 +48,62 @@ public class FacultyController {
 		model.addAttribute("faculties", faculty);
 		return "faculty/faculty-list";
 	}
-	
+
 	/**
-	 * Process creating a new course
-	 * Return to the courses form after a course has been saved
+	 * Process creating a new course Return to the courses form after a course has
+	 * been saved
+	 * 
 	 * @return
 	 */
 	@PostMapping("/faculty")
 	public String createNewFaculty(@Valid @ModelAttribute("faculty") Faculty faculty, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "faculty/faculty-form";
 		}
 		facultyService.save(faculty);
 		return "redirect:/faculty";
 	}
-	
+
 	/**
 	 * Display an empty form to create a new course
 	 * 
-	 * add all courses to the form, to be displayed in faculty courses 
-	 * preferences
+	 * add all courses to the form, to be displayed in faculty courses preferences
 	 * to further decouple this, we could call using a webservice
 	 * 
 	 * @return
 	 */
 	@GetMapping("/faculty/new")
-	public String displayNewFacultyForm(Model model) {
+	public String displayNewFacultyForm(Model model, @ModelAttribute("faculty") Faculty faculty) {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
-		model.addAttribute("faculty", new Faculty());
+		model.addAttribute("allBlocks", blockService.getBlockList());
+		model.addAttribute("faculty", faculty);
 		return "faculty/faculty-form";
 	}
-	
+
 	/**
-	 * Display a form pre-populated with the course details to edit
-	 * add all courses to the form, to be displayed in faculty courses 
-	 * preferences
-	 * to further decouple this, we could call using a web-service
+	 * Display a form pre-populated with the course details to edit add all courses
+	 * to the form, to be displayed in faculty courses preferences to further
+	 * decouple this, we could call using a web-service
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/faculty/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/faculty/{id}", method = RequestMethod.GET)
 	public String displayEditFacultyForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("allCourses", courseService.getCourseList());
 		model.addAttribute("faculty", facultyService.getFaculty(id));
+		model.addAttribute("allBlocks", blockService.getBlockList());
 		return "faculty/faculty-form";
 	}
-	
+
 	/**
 	 * Handle updating a course
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/faculty/{id}", method=RequestMethod.POST)
+	@RequestMapping(value = "/faculty/{id}", method = RequestMethod.POST)
 	public String updateFaculty() {
-		return "redirect:/faculty";
+		return "redirect:/faculty-list";
 	}
 }

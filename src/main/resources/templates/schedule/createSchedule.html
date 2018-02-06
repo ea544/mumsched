@@ -62,13 +62,29 @@
 	</nav>
 
 	<div class="container">
-		<div class="row well">
-			<a th:href="@{/createSchedule}">Generate Schedule</a>			
-		</div>
-		<div class="row well">
-			<label>Select the entry</label>
-			
-		</div>
+		<form action="#" th:action="@{/schedule}" th:object="${newSchedule}"
+			method="post">
+			<div class="row well">
+				<div class="form-group">
+					<label for="entry">Select the entry</label> <select
+						th:field="*{entry}" class="form-control" id="entry">
+						<option value="0" th:text="@{Please Select Block}"></option>
+						<option th:each="e: ${entries}" th:value="${e.id}"
+							th:text="${e.entryName}">FPP</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="name">Name:</label> <input id="name"
+						class="form-control" th:field="*{name}" required="required"
+						placeholder="Schedule name" />
+				</div>
+			</div>
+			<div class="row well">
+				<a th:href="@{/schedules}"><button type="button"
+						class="btn btn-default btn-group">Cancel</button></a>
+				<button type="submit" class="btn btn-default btn-group">Save</button>
+			</div>
+		</form>
 	</div>
 
 	<!-- Bootstrap core JavaScript -->

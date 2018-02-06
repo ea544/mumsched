@@ -1,31 +1,35 @@
 package com.mumscheduler.schedule.service;
 
-import java.rmi.server.UID;
 import java.util.List;
+import java.util.Set;
 
+import com.mumscheduler.block.model.Block;
 import com.mumscheduler.schedule.model.Schedule;
+import com.mumscheduler.schedule.model.ScheduleFacade;
 
 public interface ScheduleServiceInterface {
 
-	public List<Schedule> getSchedules();
+	public List<Schedule> getScheduleList();
 
-	public Schedule getScheduleDetails();
+	public ScheduleFacade getScheduleById(long id);
 
-	public void saveSchedule();
+	public Schedule saveSchedule(Schedule schedule);
 
-	public void generateSchedule();
+	public ScheduleFacade generateSchedule(long id);
 
 	public void checkUpdateRequirements(Schedule schedule);
 
 	public void updateSchedule(Schedule schedule);
 
-	public void checkDeleteRequirements(UID id);
+	public void checkDeleteRequirements(long id);
 
-	public void removeScheduleById(UID id);
+	public void removeScheduleById(long id);
 
-	public void checkBlockRequirements();
+	public ScheduleFacade checkBlockRequirements(ScheduleFacade sf);
 
-	public void addBlocksToSchedule(Schedule schedule);
+	public ScheduleFacade addBlocksToSchedule(ScheduleFacade sf, Set<Block> blocks);
 
-	public void checkSectionRequirements(/* Block block */);
+	public ScheduleFacade checkSectionRequirements(ScheduleFacade sf);
+
+	public ScheduleFacade validateSchedule(Schedule schedule);
 }

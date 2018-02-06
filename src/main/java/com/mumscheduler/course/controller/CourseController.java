@@ -1,8 +1,8 @@
 package com.mumscheduler.course.controller;
 
 import com.mumscheduler.course.model.Course;
-import com.mumscheduler.course.service.CourseService;
-import com.mumscheduler.faculty.service.FacultyService;
+import com.mumscheduler.course.service.CourseServiceInterface;
+import com.mumscheduler.course.validator.CourseValidator;
 
 import java.util.List;
 
@@ -21,21 +21,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CourseController {
+
+	@Autowired
+	private CourseServiceInterface courseService;
 	
 	@Autowired
-	private CourseService courseService;
-	
-	@Autowired
-	private FacultyService facultyService;
-	
+	private CourseValidator courseValidator;
+
 	/**
-	 * change this when the URLs change
-	 * this variable sets the current tab to active in the HTML
+	 * change this when the URLs change this variable sets the current tab to active
+	 * in the HTML
 	 */
 	private final String activeTab = "courses";
-	
+
 	/**
 	 * Display all the courses
+	 * 
 	 * @return
 	 */
 	@GetMapping("/courses")
@@ -45,51 +46,74 @@ public class CourseController {
 		model.addAttribute("courses", courses);
 		return "course/course-list";
 	}
-	
+
 	/**
-	 * Process creating a new course
-	 * Return to the courses form after a course has been saved
+	 * Process creating a new course Return to the courses form after a course has
+	 * been saved
+	 * 
 	 * @return
 	 */
 	@PostMapping("/courses")
 	public String createNewCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		courseValidator.validate(course, bindingResult);
+		if (bindingResult.hasErrors()) {
+			if( course.getId() == null) {
+				//model.addAttribute("allPrerequisites", courseService.getCourseList());
+			}
+			else {
+				//model.addAttribute("allPrerequisites", courseService.getCoursePrequisites(course.getId()));
+			}
+			
 			return "course/course-form";
 		}
 		courseService.save(course);
 		return "redirect:/courses";
 	}
-	
+
 	/**
 	 * Display an empty form to create a new course
+	 * 
 	 * @return
 	 */
 	@GetMapping("/courses/new")
-	public String displayNewCourseForm(Model model) {
+	public String displayNewCourseForm(Model model, @ModelAttribute("course") Course course) {
 		model.addAttribute("activeTab", this.activeTab);
-		model.addAttribute("allFaculty", facultyService.getFacultyList());
-		model.addAttribute("course", new Course());
+		model.addAttribute("course", course);
+		model.addAttribute("allPrerequisites", courseService.getCourseList());
 		return "course/course-form";
 	}
-	
+
 	/**
 	 * Display a form pre-populated with the course details to edit
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/courses/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/courses/{id}", method = RequestMethod.GET)
 	public String displayEditCourseForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("activeTab", this.activeTab);
-		model.addAttribute("allFaculty", facultyService.getFacultyList());
 		model.addAttribute("course", courseService.getCourse(id));
+		model.addAttribute("allPrerequisites", courseService.getCoursePrequisites(id));
 		return "course/course-form";
+	}
+
+	/**
+	 * Handle updating a course
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/courses/{id}", method = RequestMethod.POST)
+	public String updateCourse() {
+		return "redirect:/courses";
 	}
 	
 	/**
 	 * Handle updating a course
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/courses/{id}", method=RequestMethod.POST)
-	public String updateCourse() {
-		return "redirect:/courses";
+	@RequestMapping(value = "/courses/{id}/profile", method = RequestMethod.GET)
+	public String viewCourseProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("course", courseService.getCourse(id));
+		return "course/course";
 	}
 }

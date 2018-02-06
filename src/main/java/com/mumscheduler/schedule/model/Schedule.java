@@ -1,6 +1,7 @@
 package com.mumscheduler.schedule.model;
 
-import java.rmi.server.UID;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,23 +11,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.mumscheduler.block.model.Block;
+import com.mumscheduler.entry.model.Entry;
 
 @Entity
 public class Schedule {
-	@Id @GeneratedValue
+
+	@Id
+	@GeneratedValue
 	private long id;
+	@NotEmpty(message = "A name for the schedule is needed.")
 	private String name;
-	// @OneToOne
-	// private Entry entry;
-	// @ElementCollection
-	// @OneToMany
-	// private List<Block> blocks;
-	// @ElementCollection
-	// @OneToMany
-	// private List<Section> sections;
+	@NotNull(message = "A valid entry is needed.")
+	@OneToOne
+	private Entry entry;
+	@ElementCollection
+	@OneToMany
+	private Set<Block> blocks;
 
 	@Enumerated(EnumType.STRING)
-	private ScheduleStatus status;
+	private ScheduleStatus status = ScheduleStatus.DRAFT;
 
 	public long getId() {
 		return id;
@@ -42,6 +50,22 @@ public class Schedule {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Entry getEntry() {
+		return entry;
+	}
+
+	public void setEntry(Entry entry) {
+		this.entry = entry;
+	}
+
+	public Set<Block> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(Set<Block> blocks) {
+		this.blocks = blocks;
 	}
 
 	public ScheduleStatus getStatus() {

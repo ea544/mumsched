@@ -30,7 +30,6 @@ public class User {
 	private String email;
 	
 	@Length(min = 5)
-	@NotNull
 	private String password;
 	
 	@Transient

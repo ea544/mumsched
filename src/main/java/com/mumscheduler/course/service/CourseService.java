@@ -28,10 +28,20 @@ public class CourseService implements CourseServiceInterface {
 	public Course getCourse(Long id) {
 		return courseRepository.findOne(id);
 	}
+	
+	@Override
+	public Course getCourseByCode(String code) {
+		return courseRepository.getCourseByCode(code);
+	}
 
 	@Override
 	public List<Course> getCourseList() {
 		return courseRepository.findAll();
+	}
+	
+	@Override
+	public List<Course> getCoursePrequisites(Long id){
+		return courseRepository.getCoursePrequisites(id);
 	}
 
 }

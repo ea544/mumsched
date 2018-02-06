@@ -10,4 +10,5 @@ public interface BlockServiceInterface {
 	public Block getBlock(Long id);
 	public List<Block> getBlockList();
 	public void delete(Long id);
+	public List<Block> getBlocksBySectionId(Long id);
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 
 	<head>
 		<meta charset="utf-8" />
@@ -18,9 +18,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
 		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
+		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
+		<link th:href="@{/standard/jquery/ui/jquery-ui.min.css}" rel="stylesheet" />
 		<!-- Custom styles for this template -->
 		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		<script th:inline="javascript">
+		
+		  $( function() {
+			    $( "#enddate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+		  $( function() {
+			    $( "#startdate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+		  </script>
 	</head>
 
 	<body>
@@ -51,7 +69,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	          <ul class="dropdown-menu">
 	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
 		        <li role="separator" class="divider"></li>
+		        <th:block sec:authorize="isAuthenticated()">
 		        <li><a th:href="@{/logout}">Logout</a></li>
+		        </th:block>
 	          </ul>
 	        </li>
 	      </ul>
@@ -60,44 +80,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	</nav>
 	
 	<div class="container">
-		<h1 th:text="${title}"></h1>
 		<div class="row">
 			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 			<div class="span4 offset4 well">
-				<form action="#" th:action="@{/sections}" th:object="${section}" method="post">
-				  <th:block th:if="${error !=null}"> <h4 th:text="${error}"> Error </h4> </th:block>
-				  <div class="form-group">
-				    <label for="capacity">Capacity</label>
-				    <input type="text" th:field="*{capacity}" class="form-control" id="capacity" placeholder="Capacity" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
-				  </div>
-				  <div class="form-group">
-				  	<label for="courseName">Course Name</label>
-					    <select class="form-control" th:field="*{course}" id="courseOrder" name="courseOrder"> 
-					    		<option value="" >Select course</option>
-					    		<option id="courseName" th:each="course : ${courses}" th:value="${course.id}" th:text="${course.getName()}"></option>
-					    </select>
-				    
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
-				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
-				  <div class="form-group">
-				    <label for="facultyName">Faculty Name</label>
-				    <select class="form-control" id="facultyOrder" th:field="*{faculty}"> 
-				    		<option value="" >Select faculty</option>
-				    		<option th:each="faculty : ${faculties}" th:value="${faculty.id}" th:text="${faculty.getFirstname()}+' '+${faculty.getLastname()}"></option>
-				    </select>
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('faculty')}" th:errors="*{faculty}"></div>
-				  </div>
-				  <div class="form-group text-right">
-				  	<label for="submitButton">
-				  		<a th:href="@{/sections}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
-				  		<button type="submit" class="btn btn-default btn-group">Save</button>
-				  	</label>
-				  </div>
-				</form>    
+				<table class="table table-hover">
+					<caption><span th:text="${block}">January 2019 - 2018-01-15</span></caption>
+					<tbody>
+						<tr>
+							<th>Start Date</th><td th:text="${block.startdate}">2018-01-15</td>
+						</tr>
+						<tr>
+							<th>End Date</th><td th:text="${block.enddate}">2018-02-16</td>
+						</tr>
+						<tr>
+							<th th:rowspan="${#lists.size(block.sections)}">Sections</th>
+							<th:block th:each="section: ${block.sections}">
+				      			<td th:text="${section.faculty}+' '+${section.capacity}">Sovello Hildebrand - 25</td>
+							</th:block>
+						</tr>
+					</tbody>
+				</table>
+			
 			</div>
 		</div>
 	</div>
@@ -122,12 +125,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	</div>
 	
 		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
 		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
 		
 		<!-- Plugin JavaScript -->
 		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
+  		<script th:src="@{/standard/jquery/ui/jquery-ui.min.js}"></script>
 		<!-- Custom scripts for this template -->
 		<script th:src="@{/js/mumsched.js}"></script>
 	
