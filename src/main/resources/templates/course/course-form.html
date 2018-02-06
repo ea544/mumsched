@@ -68,9 +68,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				    <label for="courseName">Course Name</label>
 				    <input type="text" th:field="*{name}" class="form-control" id="courseName" placeholder="e.g. Software Engineering" />
 				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
+				  <input type="hidden" th:field="*{id}" />
 				  <div class="form-group">
 				    <label for="courseLevel">Course Level</label>
 				    <input type="number" th:field="*{level}" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
@@ -88,6 +86,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				  </div>
 				  <div class="form-group">
 				    <label for="prerequisites">Prerequisites:</label>
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('prerequisites')}" th:errors="*{prerequisites}"></div>
 				    <select th:field="*{prerequisites}" th:multiple="multiple" class="form-control" id="prerequisites">
 				      <option
 				      	th:each="prerequisite: ${allPrerequisites}" 
@@ -105,25 +104,30 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 			</div>
 		</div>
 	</div>
-	<div class="social-icons">
-		<ul class="list-unstyled text-center mb-0">
-			<li class="list-unstyled-item">
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+	  <div class="container">
+	    &copy; 2018 MUMSched - Group 11
+	    <div class="social-icons">
+		<ul class="list-inline text-center">
+			<li>
 				<a href="#">
 					<i class="fa fa-twitter"></i>
 				</a>
 			</li>
-			<li class="list-unstyled-item">
+			<li>
 				<a href="#">
 			    	<i class="fa fa-facebook"></i>
 			  	</a>
 			</li>
-			<li class="list-unstyled-item">
+			<li>
 			  	<a href="#">
 			    	<i class="fa fa-instagram"></i>
 			  	</a>
 			</li>
 		</ul>
 	</div>
+	  </div>
+	</nav>
 	
 		<!-- Bootstrap core JavaScript -->
 		<script th:src="@{/standard/jquery/jquery.min.js}"></script>

@@ -11,9 +11,18 @@ import org.springframework.stereotype.Service;
 @Service("blockService")
 public class BlockService implements BlockServiceInterface {
 
+	
 	@Autowired
 	BlockRepository blockRepository;
 	
+	@Override
+	public boolean blockExists(Block block) {
+		Block blk = blockRepository.findBlockByNamesAndDates(block.getName(), block.getStartdate(), block.getEnddate());
+		if( blk != null) {
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public Block save(Block block) {
 		return blockRepository.save(block);

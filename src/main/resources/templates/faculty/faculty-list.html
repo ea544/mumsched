@@ -86,7 +86,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 							<td th:text="${faculty.lastname}">Hildebrand</td> 
 							<td th:text="${faculty.email}">shildebrand@mumsched.tao</td>
 							<td><a th:href="@{'/faculty/'+${faculty.id}+'?update=1'}">Update</a> | 
-							<a th:href="@{'/faculty/'+${faculty.id}+'?update=0'}">Delete</a></td>
+							<a th:href="@{'/faculty/'+${faculty.id}+'?update=0'}">Delete</a> | 
+							<a th:href="@{'/faculty/'+${faculty.id}+'/profile'}">View Faculty Profile</a></td>
 						</tr>
 						</th:block>
 					</tbody>
@@ -97,25 +98,30 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 			</div>
 		</div>
 	</div>
-	<div class="social-icons">
-		<ul class="list-unstyled text-center mb-0">
-			<li class="list-unstyled-item">
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+	  <div class="container">
+	    &copy; 2018 MUMSched - Group 11
+	    <div class="social-icons">
+		<ul class="list-inline text-center">
+			<li>
 				<a href="#">
 					<i class="fa fa-twitter"></i>
 				</a>
 			</li>
-			<li class="list-unstyled-item">
+			<li>
 				<a href="#">
 			    	<i class="fa fa-facebook"></i>
 			  	</a>
 			</li>
-			<li class="list-unstyled-item">
+			<li>
 			  	<a href="#">
 			    	<i class="fa fa-instagram"></i>
 			  	</a>
 			</li>
 		</ul>
 	</div>
+	  </div>
+	</nav>
 	
 		<!-- Bootstrap core JavaScript -->
 		<script th:src="@{/standard/jquery/jquery.min.js}"></script>

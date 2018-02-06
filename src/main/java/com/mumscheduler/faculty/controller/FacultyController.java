@@ -4,6 +4,7 @@ import com.mumscheduler.block.service.BlockServiceInterface;
 import com.mumscheduler.course.service.CourseServiceInterface;
 import com.mumscheduler.faculty.model.Faculty;
 import com.mumscheduler.faculty.service.FacultyServiceInterface;
+import com.mumscheduler.faculty.validator.FacultyValidator;
 
 import javax.validation.Valid;
 
@@ -30,6 +31,14 @@ public class FacultyController {
 	@Autowired
 	private CourseServiceInterface courseService;
 
+	@Autowired
+	private FacultyValidator facultyValidator;
+	
+//	@InitBinder
+//	protected void initBinder(WebDataBinder binder) {
+//		binder.addValidators(facultyValidator);
+//	}
+	
 	/**
 	 * change this when the URLs change this variable sets the current tab to active
 	 * in the HTML
@@ -56,8 +65,14 @@ public class FacultyController {
 	 * @return
 	 */
 	@PostMapping("/faculty")
-	public String createNewFaculty(@Valid @ModelAttribute("faculty") Faculty faculty, BindingResult bindingResult) {
+	public String createNewFaculty(@Valid @ModelAttribute("faculty") Faculty faculty, 
+			BindingResult bindingResult, Model model) {
+		facultyValidator.validate(faculty, bindingResult);
 		if (bindingResult.hasErrors()) {
+			System.out.println("The faculty has an id of "+faculty.getId());
+			model.addAttribute("faculty", faculty);
+			model.addAttribute("allCourses", courseService.getCourseList());
+			model.addAttribute("allBlocks", blockService.getBlockList());
 			return "faculty/faculty-form";
 		}
 		facultyService.save(faculty);
@@ -105,5 +120,16 @@ public class FacultyController {
 	@RequestMapping(value = "/faculty/{id}", method = RequestMethod.POST)
 	public String updateFaculty() {
 		return "redirect:/faculty-list";
+	}
+	
+	/**
+	 * Handle updating a course
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/faculty/{id}/profile", method = RequestMethod.GET)
+	public String viewFacultyProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("faculty", facultyService.getFaculty(id));
+		return "faculty/faculty";
 	}
 }
