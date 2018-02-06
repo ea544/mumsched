@@ -1,105 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html layout:decorator="fragments/layout"
+xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		<meta name="MUM Scheduler Application" content="" />
-		<meta name="Sovello" content="" />
-		
 		<title th:text="#{index.title}">MUMSched</title>
-		
-		<!-- Bootstrap core CSS -->
-		<link th:href="@{/standard/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-		
-		<!-- Custom fonts for this template -->
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
-		<!-- Custom styles for this template -->
-		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
 	</head>
 
 	<body>
-		<div class="overlay"></div>
-	
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" 
-	      data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" th:href="@{/home}">MUM</a>
-	    </div>
-	
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	      	<li><a th:href="@{/login}" th:text="#{login}">Login</a></li>
-	      	<li><a th:href="@{/home}" th:text="#{home}">Home</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-	          role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li class="active"><a th:href="@{/#}" th:text="#{home}">Home<span class="sr-only">(current)</span></a></li>
-		        <li role="separator" class="divider"></li>
-		        <li><a th:href="@{/login}" th:text="#{login}">Login</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-6 col-md-4 col-md-offset-4">
-			    <p th:text="#{welcome}">Welcome</p>
+
+		<th:block layout:fragment="content">
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-md-offset-4">
+				    <p th:text="#{welcome}">Welcome</p>
+				</div>
 			</div>
-		</div>
-	</div>
-	
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container" th:fragment="copy">
-	    &copy; 2018 MUMSched - Group 11
-	    <div class="social-icons">
-		<ul class="list-inline text-center">
-			<li>
-				<a href="#">
-					<i class="fa fa-twitter"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-			    	<i class="fa fa-facebook"></i>
-			  	</a>
-			</li>
-			<li>
-			  	<a href="#">
-			    	<i class="fa fa-instagram"></i>
-			  	</a>
-			</li>
-		</ul>
-	</div>
-	  </div>
-	</nav>
-		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
-		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
-		
-		<!-- Plugin JavaScript -->
-		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
-		<!-- Custom scripts for this template -->
-		<script th:src="@{/js/mumsched.js}"></script>
-	
+		</th:block>	
 	</body>
 </html>
