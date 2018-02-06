@@ -89,7 +89,7 @@ public class ScheduleService implements ScheduleServiceInterface {
 			 * required.
 			 */
 			Entry entry = sf.getSchedule().getEntry();
-			Set<Block> blocks = null; // entry.getBlocks();
+			Set<Block> blocks = entry.getBlocks();
 
 			if (blocks.size() >= 10) {
 				sf = addBlocksToSchedule(sf, blocks);
