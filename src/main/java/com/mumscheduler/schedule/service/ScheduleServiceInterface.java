@@ -30,6 +30,4 @@ public interface ScheduleServiceInterface {
 	public ScheduleFacade addBlocksToSchedule(ScheduleFacade sf, Set<Block> blocks);
 
 	public ScheduleFacade checkSectionRequirements(ScheduleFacade sf);
-
-	public ScheduleFacade validateSchedule(Schedule schedule);
 }

@@ -27,10 +27,10 @@ public class SectionService implements SectionServiceInterface {
 	}
 	
 
-	@Override
+	/*@Override
 	public Section getSection(String blockName) {
 		return sectionRepository.getSectionByBlockName(blockName);
-	}
+	}*/
 
 	@Override
 	public Section getSection(Long id) {

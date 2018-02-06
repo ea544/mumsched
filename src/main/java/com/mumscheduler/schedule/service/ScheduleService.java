@@ -13,11 +13,10 @@ import com.mumscheduler.schedule.factory.ScheduleFactory;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
 import com.mumscheduler.schedule.repository.ScheduleRepository;
+import com.mumscheduler.section.model.Section;
 
 @Service
 public class ScheduleService implements ScheduleServiceInterface {
-
-	private static final String INSUFFICIENT_BLOCKS = "You don't have a sufficient number of blocks to generate this schedule.";
 
 	@Autowired
 	private ScheduleRepository repo;
@@ -32,7 +31,7 @@ public class ScheduleService implements ScheduleServiceInterface {
 	@Override
 	public ScheduleFacade getScheduleById(long id) {
 		Schedule schedule = repo.findOne(id);
-		return validateSchedule(schedule);
+		return ScheduleFactory.validateSchedule(schedule);
 	}
 
 	@Override
@@ -88,14 +87,13 @@ public class ScheduleService implements ScheduleServiceInterface {
 			 * TODO: Confirm there exists a sufficient number of blocks. 10 blocks are
 			 * required.
 			 */
-			Entry entry = sf.getSchedule().getEntry();
-			Set<Block> blocks = entry.getBlocks();
+			Set<Block> blocks = sf.getSchedule().getBlocks();
 
 			if (blocks.size() >= 10) {
 				sf = addBlocksToSchedule(sf, blocks);
 			} else {
 				sf.setActionSuccess(false);
-				sf.setActionResponse(INSUFFICIENT_BLOCKS);
+				sf.setActionResponse(ScheduleFactory.INSUFFICIENT_BLOCKS);
 			}
 		}
 
@@ -115,24 +113,17 @@ public class ScheduleService implements ScheduleServiceInterface {
 	public ScheduleFacade checkSectionRequirements(ScheduleFacade sf) {
 		if (sf.isActionSuccess()) {
 			/*
-			 * First block has FPP and MPP Second block has MPP for FPP track students and
-			 * Sections (classes) enough to cater for total number of non-fpp track students
-			 * The next 4 blocks cater for total amount of students The next 5th block
-			 * caters for OPT track and US residents The last 3 blocks cater for US
+			 * TODO: First block has FPP and MPP Second block has MPP for FPP track students
+			 * and Sections (classes) enough to cater for total number of non-fpp track
+			 * students The next 4 blocks cater for total amount of students The next 5th
+			 * block caters for OPT track and US residents The last 3 blocks cater for US
 			 * residents
 			 */
-		}
 
-		return sf;
-	}
-
-	@Override
-	public ScheduleFacade validateSchedule(Schedule schedule) {
-		ScheduleFacade sf = ScheduleFactory.createScheduleFacade(schedule);
-
-		if (schedule == null) {
-			sf.setActionSuccess(false);
-			sf.setActionResponse("No schedule found!");
+			// checkFppandMpp(sf.getSchedule().getEntry());
+			// checkMppForFppTrack(sf.getSchedule().getEntry());
+			// checkSectionsForNonFppTrack(sf.getSchedule().getEntry());
+			// checkSectionsForAllTracks();
 		}
 
 		return sf;

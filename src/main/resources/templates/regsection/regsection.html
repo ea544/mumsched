@@ -161,12 +161,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	        			 {
 	        			     /* alert(this.value);
 	        			     alert(this.label); */
-
 	        			     //this refers to the current item being iterated over
-
 	        			     var option = $('<option />');
 	        			     option.attr('value', this.blockName).text(this.blockName);
-
 	        			     $('#selectBlock').append(option);
 	        			 });
 	        }
@@ -183,12 +180,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 		        			 {
 		        			     /* alert(this.value);
 		        			     alert(this.label); */
-
 		        			     //this refers to the current item being iterated over
-
 		        			     var option = $('<option />');
 		        			     option.attr('value', this.courseName).text(this.courseName);
-
 		        			     $('#selectCourse').append(option);
 		        			 });
 		        }

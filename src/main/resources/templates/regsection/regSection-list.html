@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 
 	<head>
 		<meta charset="utf-8" />
@@ -43,7 +43,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
-	      	<li><a th:href="@{/logout}">Logout</a></li>
+	      	<th:block sec:authorize="isAuthenticated()">
+	      	<li th:class="${activeTab == 'dashboard'} ? 'active' : null"><a th:href="@{/dashboard}">[Dashboard]</a></li>
+	      	<li th:class="${activeTab == 'entries'} ? 'active' : null"><a th:href="@{/entries}">[Entries]</a></li>
+	      	<li th:class="${activeTab == 'blocks'} ? 'active' : null"><a th:href="@{/blocks}">[Blocks]</a></li>
+	      	<li th:class="${activeTab == 'courses'} ? 'active' : null"><a th:href="@{/courses}">[Courses]</a></li>
+	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
+	      	<li th:class="${activeTab == 'sections'} ? 'active' : null"><a th:href="@{/sections}">[Sections]</a></li>
+	      	<li th:class="${activeTab == 'schedules'} ? 'active' : null"><a th:href="@{/schedules}">[Schedules]</a></li>
+	      	</th:block>
 	      	<li><a th:href="@{/home}">Home</a></li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
@@ -51,7 +59,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	          <ul class="dropdown-menu">
 	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
 		        <li role="separator" class="divider"></li>
+		        <th:block sec:authorize="isAuthenticated()">
 		        <li><a th:href="@{/logout}">Logout</a></li>
+		        </th:block>
 	          </ul>
 	        </li>
 	      </ul>
@@ -60,44 +70,30 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 	</nav>
 	
 	<div class="container">
-		<h1 th:text="${title}"></h1>
-		<div class="row">
-			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
-			<div class="span4 offset4 well">
-				<form action="#" th:action="@{/sections}" th:object="${section}" method="post">
-				  <th:block th:if="${error !=null}"> <h4 th:text="${error}"> Error </h4> </th:block>
-				  <div class="form-group">
-				    <label for="capacity">Capacity</label>
-				    <input type="text" th:field="*{capacity}" class="form-control" id="capacity" placeholder="Capacity" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
-				  </div>
-				  <div class="form-group">
-				  	<label for="courseName">Course Name</label>
-					    <select class="form-control" th:field="*{course}" id="courseOrder" name="courseOrder"> 
-					    		<option value="" >Select course</option>
-					    		<option id="courseName" th:each="course : ${courses}" th:value="${course.id}" th:text="${course.getName()}"></option>
-					    </select>
-				    
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
-				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
-				  <div class="form-group">
-				    <label for="facultyName">Faculty Name</label>
-				    <select class="form-control" id="facultyOrder" th:field="*{faculty}"> 
-				    		<option value="" >Select faculty</option>
-				    		<option th:each="faculty : ${faculties}" th:value="${faculty.id}" th:text="${faculty.getFirstname()}+' '+${faculty.getLastname()}"></option>
-				    </select>
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('faculty')}" th:errors="*{faculty}"></div>
-				  </div>
-				  <div class="form-group text-right">
-				  	<label for="submitButton">
-				  		<a th:href="@{/sections}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
-				  		<button type="submit" class="btn btn-default btn-group">Save</button>
-				  	</label>
-				  </div>
-				</form>    
+		<div class="row well">
+			<div class="col-md-9">
+				<table class="table table-hover">
+					<thead>
+						<tr> 
+							<th>#</th> <th>Course Code</th> <th>Course Level</th> <th>Course Name</th><th>Action</th> 
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="course : ${courses}">
+						<tr> 
+							<th scope="row">1</th> 
+							<td th:text="${course.code}">SW</td> 
+							<td th:text="${course.level}">425</td> 
+							<td th:text="${course.name}">Software Engineering</td>
+							<td><a th:href="@{'/courses/'+${course.id}+'?update=1'}">Update</a> | 
+							<a th:href="@{'/courses/'+${course.id}+'?update=0'}">Delete</a></td>
+						</tr>
+						</th:block>
+					</tbody>
+				</table>    
+			</div>
+			<div class="col-md-3">
+				<p><a th:href="@{/courses/new}"></a></p>
 			</div>
 		</div>
 	</div>
