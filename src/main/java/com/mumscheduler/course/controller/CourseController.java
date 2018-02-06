@@ -105,4 +105,15 @@ public class CourseController {
 	public String updateCourse() {
 		return "redirect:/courses";
 	}
+	
+	/**
+	 * Handle updating a course
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/courses/{id}/profile", method = RequestMethod.GET)
+	public String viewCourseProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("course", courseService.getCourse(id));
+		return "course/course";
+	}
 }
