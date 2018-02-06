@@ -107,7 +107,7 @@ public class CourseController {
 	}
 	
 	/**
-	 * Handle updating a course
+	 * Course profile view
 	 * 
 	 * @return
 	 */

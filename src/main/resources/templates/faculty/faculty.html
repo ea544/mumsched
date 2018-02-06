@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html layout:decorator="fragments/layout"
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+	<head>
+		<title th:text="#{index.title}">MUMSched</title>
+	</head>
+	<body>
+
+		<th:block layout:fragment="content">
+			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
+			<div class="span4 offset4 well">
+				<table class="table table-hover">
+					<tbody>
+					<caption>Faculty Profile</caption>
+						<tr>
+							<th>First name</th><td th:text="${faculty.firstname}">Sovello</td>
+						</tr>
+						<tr>
+							<th>Last name</th><td th:text="${faculty.lastname}">Hildebrand</td>
+						</tr>
+						<tr>
+							<th>Email</th><td th:text="${faculty.email}">smgani@mum.edu</td>
+						</tr>
+						<tr>
+							<th>Preferred Blocks</th>
+							<td>
+							<th:block th:each="block: ${faculty.blocks}">
+				      			<span th:text="${block}">
+				      				January 2018 Block - 2018-01-15
+				      			</span><br />
+							</th:block>
+							</td>
+						</tr>
+						<tr>
+							<th>Preferred Courses</th>
+							<td>
+							<th:block th:each="prerequisite: ${faculty.courses}">
+				      			<span th:text="${prerequisite}">
+				      				SW - Software Engineering
+				      			</span><br />
+							</th:block>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			
+			</div>
+		</th:block>
+	</body>
+</html>

@@ -10,10 +10,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -25,20 +23,15 @@ public class User {
 	private Long id;
 	
 	@Email
-	@NotNull
-	@Column(unique=true)
 	private String email;
 	
-	@Length(min = 5)
 	private String password;
 	
 	@Transient
 	private String confirmPassword;
 	
-	@NotNull
 	private String firstname;
 	
-	@NotNull
 	private String lastname;
 	
 	private int active;
