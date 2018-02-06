@@ -24,6 +24,7 @@ public class BlockService implements BlockServiceInterface {
 		return blockRepository.getOne(id);
 	}
 
+	
 	@Override
 	public List<Block> getBlockList() {
 		return blockRepository.findAll();
@@ -32,6 +33,11 @@ public class BlockService implements BlockServiceInterface {
 	@Override
 	public void delete(Long id) {
 		blockRepository.delete(id);
+	}
+
+	@Override
+	public List<Block> getBlocksBySectionId(Long id) {
+		return blockRepository.getBlocksBySectionId(id);
 	}
 
 }

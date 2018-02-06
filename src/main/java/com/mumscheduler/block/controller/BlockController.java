@@ -104,4 +104,15 @@ public class BlockController {
 	public String updateBlock() {
 		return "redirect:/blocks";
 	}
+	
+	/**
+	 * View Block Profile
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/blocks/{id}/profile", method = RequestMethod.GET)
+	public String viewBlockProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("block", blockService.getBlock(id));
+		return "blocks/block";
+	}
 }
