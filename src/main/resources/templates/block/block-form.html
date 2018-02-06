@@ -88,9 +88,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				    <label for="serial">Block number</label>
 				    <input type="number" th:field="*{serial}" class="form-control" id="serial" placeholder="1" />
 				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
+				  <input type="hidden" th:field="*{id}" />
 				  <div class="form-group">
 				    <label for="name">Block name</label>
 				    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="February" />

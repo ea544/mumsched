@@ -67,10 +67,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				  <div class="form-group">
 				    <label for="firstname">First name</label>
 				    <input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="First name" />
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
 				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
+				  <input type="hidden" th:field="*{id}" />
 				  <div class="form-group">
 				    <label for="lastname">Last name</label>
 				    <input type="text" th:field="*{lastname}" class="form-control" id="lastname" placeholder="Last name" />

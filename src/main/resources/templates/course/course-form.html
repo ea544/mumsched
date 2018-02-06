@@ -68,9 +68,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				    <label for="courseName">Course Name</label>
 				    <input type="text" th:field="*{name}" class="form-control" id="courseName" placeholder="e.g. Software Engineering" />
 				  </div>
-				  <th:block th:if="${id != null}">
-				  	<input type="hidden" th:field="*{id}" />
-				  </th:block>
+				  <input type="hidden" th:field="*{id}" />
 				  <div class="form-group">
 				    <label for="courseLevel">Course Level</label>
 				    <input type="number" th:field="*{level}" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
