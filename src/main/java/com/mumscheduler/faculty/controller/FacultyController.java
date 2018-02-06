@@ -69,7 +69,7 @@ public class FacultyController {
 			BindingResult bindingResult, Model model) {
 		facultyValidator.validate(faculty, bindingResult);
 		if (bindingResult.hasErrors()) {
-			System.out.println("The faculty has an id of "+faculty.getId());
+			model.addAttribute("activeTab", this.activeTab);
 			model.addAttribute("faculty", faculty);
 			model.addAttribute("allCourses", courseService.getCourseList());
 			model.addAttribute("allBlocks", blockService.getBlockList());
@@ -129,6 +129,7 @@ public class FacultyController {
 	 */
 	@RequestMapping(value = "/faculty/{id}/profile", method = RequestMethod.GET)
 	public String viewFacultyProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("faculty", facultyService.getFaculty(id));
 		return "faculty/faculty";
 	}
