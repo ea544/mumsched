@@ -92,37 +92,44 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 						<tr>
 							<th>End Date</th><td th:text="${block.enddate}">2018-02-16</td>
 						</tr>
+						<th:block th:if="${not #lists.isEmpty(block.sections)}">
 						<tr>
 							<th th:rowspan="${#lists.size(block.sections)}">Sections</th>
 							<th:block th:each="section: ${block.sections}">
 				      			<td th:text="${section.faculty}+' '+${section.capacity}">Sovello Hildebrand - 25</td>
 							</th:block>
 						</tr>
+						</th:block>
 					</tbody>
 				</table>
 			
 			</div>
 		</div>
 	</div>
-	<div class="social-icons">
-		<ul class="list-unstyled text-center mb-0">
-			<li class="list-unstyled-item">
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+	  <div class="container">
+	    &copy; 2018 MUMSched - Group 11
+	    <div class="social-icons">
+		<ul class="list-inline text-center">
+			<li>
 				<a href="#">
 					<i class="fa fa-twitter"></i>
 				</a>
 			</li>
-			<li class="list-unstyled-item">
+			<li>
 				<a href="#">
 			    	<i class="fa fa-facebook"></i>
 			  	</a>
 			</li>
-			<li class="list-unstyled-item">
+			<li>
 			  	<a href="#">
 			    	<i class="fa fa-instagram"></i>
 			  	</a>
 			</li>
 		</ul>
 	</div>
+	  </div>
+	</nav>
 	
 		<!-- Bootstrap core JavaScript -->
 		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
