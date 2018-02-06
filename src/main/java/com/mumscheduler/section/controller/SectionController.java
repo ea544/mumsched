@@ -62,7 +62,7 @@ public class SectionController {
 	 * @return
 	 */
 	@PostMapping("/sections")
-	public String createNew(@Valid @ModelAttribute("section")  Section section, BindingResult bindingResult, @PathVariable("id") Long id, Model model) {
+	public String createNew(@Valid @ModelAttribute("section")  Section section, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			return "section/section-form";
 		}
@@ -78,11 +78,22 @@ public class SectionController {
 		{
 			e.printStackTrace();
 			error = "Course name and Faculty name are already exist!";
+			
+			String title = "Create a new section";
+			model.addAttribute("allSection", sectionService.getSectionList());
+			Iterable<Course> courses = courseService.getCourseList();
+			Iterable<Faculty> faculties = facultyService.getFacultyList();
+			model.addAttribute("courses", courses);
+			model.addAttribute("faculties",faculties);
+			//model.addAttribute("section", new Section()); change to
+			model.addAttribute("section", section);
+			model.addAttribute("title", title);
+			
 			model.addAttribute("error", error);
 			//return "section/section-form";
 			System.out.println( section.getId());
-			System.out.println( id);
-			return "redirect:/sectionsUpdate/" + id;
+			//System.out.println( id);
+			return "section/section-form";
 		}
 		return "redirect:/sections";
 	}
