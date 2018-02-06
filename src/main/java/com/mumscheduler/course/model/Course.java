@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Course {
@@ -24,7 +24,7 @@ public class Course {
 	
 	private Integer capacity;	
 
-	@OneToMany
+	@ManyToMany
 	private Set<Course> prerequisites;
 	
 	public Course() {}
@@ -87,6 +87,14 @@ public class Course {
 	@Override
 	public String toString() {
 		return String.format("%s - %s", code, name);
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if( object == null) return false;
+		if( object.getClass() != this.getClass()) return false;
+		Course course = (Course) object;
+		return code.equals(course.getCode());
 	}
 	
 }
