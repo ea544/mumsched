@@ -1,13 +1,15 @@
 package com.mumscheduler.entry.model;
 
+import com.mumscheduler.block.model.Block;
 
-import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -38,11 +40,9 @@ public class Entry
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
-	//private LocalDate endDate;
-	//private LocalDate startDate;
 	
-	//@Temporal(TemporalType.DATE)
-	//private Date dateTest;
+	@ManyToMany
+	private Set<Block> blocks;
 	
 	public Entry() {}
 	
@@ -61,6 +61,14 @@ public class Entry
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Set<Block> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(Set<Block> blocks) {
+		this.blocks = blocks;
 	}
 
 	public int getFppNum() {
