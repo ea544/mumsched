@@ -94,11 +94,14 @@
 					<tbody>
 						<th:block th:each="b : ${sf.schedule.entry.blocks}">
 							<tr>
+								<td th:text="${b.name}"></td>
 								<td
-									th:text="|${b.name}: ${#dates.format(b.startdate, 'MM/yyyy')} - ${#dates.format(b.enddate, 'MM/yyyy')}|">
+									th:text="|${#dates.format(b.startdate, 'MM/dd/yyyy')} - ${#dates.format(b.enddate, 'MM/dd/yyyy')}|">
 								</td>
-								<td></td>
-								<td></td>
+								<td><th:block th:each="s : ${b.sections}">
+										<p th:text="${s.course.name}"></p>
+										<br />
+									</th:block></td>
 							</tr>
 						</th:block>
 					</tbody>

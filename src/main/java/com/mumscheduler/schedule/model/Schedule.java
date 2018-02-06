@@ -29,9 +29,9 @@ public class Schedule {
 	@NotNull(message = "A valid entry is needed.")
 	@OneToOne
 	private Entry entry;
-	@ElementCollection
-	@OneToMany
-	private Set<Block> blocks;
+	// @ElementCollection
+	// @OneToMany
+	// private Set<Block> blocks;
 
 	@Enumerated(EnumType.STRING)
 	private ScheduleStatus status = ScheduleStatus.DRAFT;
@@ -61,11 +61,11 @@ public class Schedule {
 	}
 
 	public Set<Block> getBlocks() {
-		return blocks;
+		return this.entry.getBlocks();
 	}
 
 	public void setBlocks(Set<Block> blocks) {
-		this.blocks = blocks;
+		this.entry.setBlocks(blocks);
 	}
 
 	public ScheduleStatus getStatus() {
