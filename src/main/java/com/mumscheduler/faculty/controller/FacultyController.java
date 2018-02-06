@@ -106,4 +106,15 @@ public class FacultyController {
 	public String updateFaculty() {
 		return "redirect:/faculty-list";
 	}
+	
+	/**
+	 * Handle updating a course
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/faculty/{id}/profile", method = RequestMethod.GET)
+	public String viewFacultyProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("faculty", facultyService.getFaculty(id));
+		return "faculty/faculty";
+	}
 }
