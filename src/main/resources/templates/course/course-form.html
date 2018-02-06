@@ -88,6 +88,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				  </div>
 				  <div class="form-group">
 				    <label for="prerequisites">Prerequisites:</label>
+				    <div class="help-block with-errors" th:if="${#fields.hasErrors('prerequisites')}" th:errors="*{prerequisites}"></div>
 				    <select th:field="*{prerequisites}" th:multiple="multiple" class="form-control" id="prerequisites">
 				      <option
 				      	th:each="prerequisite: ${allPrerequisites}" 
