@@ -1,5 +1,9 @@
 package com.mumscheduler.entry.controller;
 
+import com.mumscheduler.block.service.BlockServiceInterface;
+import com.mumscheduler.entry.model.Entry;
+import com.mumscheduler.entry.service.EntryService;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,14 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.mumscheduler.entry.model.Entry;
-import com.mumscheduler.entry.service.EntryService;
-
 @Controller
 public class EntryController 
 {
 	@Autowired
 	private EntryService entryService;
+	
+	@Autowired
+	private BlockServiceInterface blockService;
 	
 	@GetMapping("/entries")
 	public String entryHome(Model model) 
@@ -50,6 +54,7 @@ public class EntryController
 		
 		model.addAttribute("title",title);
 		model.addAttribute("newEntry", newEntry);
+		model.addAttribute("allBlocks", blockService.getBlockList());
 		return "entry/entry-form";
 	}
 }

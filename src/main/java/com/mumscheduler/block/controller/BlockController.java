@@ -28,7 +28,7 @@ public class BlockController {
 	private SectionServiceInterface sectionService;
 	
 	@Autowired
-	private BlockValidator validator;
+	private BlockValidator blockValidator;
 	
 //	@InitBinder
 //	protected void initBinder(WebDataBinder binder) {
@@ -62,7 +62,7 @@ public class BlockController {
 	@PostMapping("/blocks")
 	public String createNewBlock(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult) {
 		
-		validator.validate(block, bindingResult);
+		blockValidator.validate(block, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "block/block-form";
 		}
@@ -103,5 +103,16 @@ public class BlockController {
 	@RequestMapping(value = "/blocks/{id}", method = RequestMethod.POST)
 	public String updateBlock() {
 		return "redirect:/blocks";
+	}
+	
+	/**
+	 * View Block Profile
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/blocks/{id}/profile", method = RequestMethod.GET)
+	public String viewBlockProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("block", blockService.getBlock(id));
+		return "blocks/block";
 	}
 }

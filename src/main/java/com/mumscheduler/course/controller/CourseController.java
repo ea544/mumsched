@@ -2,6 +2,7 @@ package com.mumscheduler.course.controller;
 
 import com.mumscheduler.course.model.Course;
 import com.mumscheduler.course.service.CourseServiceInterface;
+import com.mumscheduler.course.validator.CourseValidator;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class CourseController {
 
 	@Autowired
 	private CourseServiceInterface courseService;
+	
+	@Autowired
+	private CourseValidator courseValidator;
 
 	/**
 	 * change this when the URLs change this variable sets the current tab to active
@@ -51,7 +55,15 @@ public class CourseController {
 	 */
 	@PostMapping("/courses")
 	public String createNewCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult) {
+		courseValidator.validate(course, bindingResult);
 		if (bindingResult.hasErrors()) {
+			if( course.getId() == null) {
+				//model.addAttribute("allPrerequisites", courseService.getCourseList());
+			}
+			else {
+				//model.addAttribute("allPrerequisites", courseService.getCoursePrequisites(course.getId()));
+			}
+			
 			return "course/course-form";
 		}
 		courseService.save(course);
@@ -92,5 +104,16 @@ public class CourseController {
 	@RequestMapping(value = "/courses/{id}", method = RequestMethod.POST)
 	public String updateCourse() {
 		return "redirect:/courses";
+	}
+	
+	/**
+	 * Handle updating a course
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/courses/{id}/profile", method = RequestMethod.GET)
+	public String viewCourseProfile(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("course", courseService.getCourse(id));
+		return "course/course";
 	}
 }

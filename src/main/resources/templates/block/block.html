@@ -18,9 +18,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
 		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
+		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
+		<link th:href="@{/standard/jquery/ui/jquery-ui.min.css}" rel="stylesheet" />
 		<!-- Custom styles for this template -->
 		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		<script th:inline="javascript">
+		
+		  $( function() {
+			    $( "#enddate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+		  $( function() {
+			    $( "#startdate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+		  </script>
 	</head>
 
 	<body>
@@ -43,15 +61,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
-	      	<th:block sec:authorize="isAuthenticated()">
-	      	<li th:class="${activeTab == 'dashboard'} ? 'active' : null"><a th:href="@{/dashboard}">[Dashboard]</a></li>
-	      	<li th:class="${activeTab == 'entries'} ? 'active' : null"><a th:href="@{/entries}">[Entries]</a></li>
-	      	<li th:class="${activeTab == 'blocks'} ? 'active' : null"><a th:href="@{/blocks}">[Blocks]</a></li>
-	      	<li th:class="${activeTab == 'courses'} ? 'active' : null"><a th:href="@{/courses}">[Courses]</a></li>
-	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
-	      	<li th:class="${activeTab == 'sections'} ? 'active' : null"><a th:href="@{/sections}">[Sections]</a></li>
-	      	<li th:class="${activeTab == 'schedules'} ? 'active' : null"><a th:href="@{/schedules}">[Schedules]</a></li>
-	      	</th:block>
+	      	<li><a th:href="@{/logout}">Logout</a></li>
 	      	<li><a th:href="@{/home}">Home</a></li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
@@ -70,32 +80,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 	</nav>
 	
 	<div class="container">
-		<div class="row well">
-			<div class="col-md-9">
+		<div class="row">
+			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
+			<div class="span4 offset4 well">
 				<table class="table table-hover">
-					<thead>
-						<tr> 
-							<th>#</th> <th>Course Code</th> <th>Course Level</th> <th>Course Name</th><th>Maximum Capacity</th><th>Action</th> 
-						</tr>
-					</thead>
+					<caption><span th:text="${block}">January 2019 - 2018-01-15</span></caption>
 					<tbody>
-						<th:block th:each="course, idx : ${courses}">
-						<tr> 
-							<th scope="row" th:text="${idx.count}">1</th> 
-							<td th:text="${course.code}">SW</td> 
-							<td th:text="${course.level}">425</td> 
-							<td th:text="${course.name}">Software Engineering</td>
-							<td th:text="${course.capacity}">25</td>
-							<td><a th:href="@{'/courses/'+${course.id}+'?update=1'}">Update</a> | 
-							<a th:href="@{'/courses/'+${course.id}+'?update=0'}">Delete</a> | 
-							<a th:href="@{'/courses/'+${course.id}+'/profile'}">View Profile</a></td>
+						<tr>
+							<th>Start Date</th><td th:text="${block.startdate}">2018-01-15</td>
 						</tr>
-						</th:block>
+						<tr>
+							<th>End Date</th><td th:text="${block.enddate}">2018-02-16</td>
+						</tr>
+						<tr>
+							<th th:rowspan="${#lists.size(block.sections)}">Sections</th>
+							<th:block th:each="section: ${block.sections}">
+				      			<td th:text="${section.faculty}+' '+${section.capacity}">Sovello Hildebrand - 25</td>
+							</th:block>
+						</tr>
 					</tbody>
-				</table>    
-			</div>
-			<div class="col-md-3">
-				<p><a th:href="@{/courses/new}">Create a new Course</a></p>
+				</table>
+			
 			</div>
 		</div>
 	</div>
@@ -120,12 +125,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 	</div>
 	
 		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
 		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
 		
 		<!-- Plugin JavaScript -->
 		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
+  		<script th:src="@{/standard/jquery/ui/jquery-ui.min.js}"></script>
 		<!-- Custom scripts for this template -->
 		<script th:src="@{/js/mumsched.js}"></script>
 	

@@ -11,4 +11,5 @@ public interface CourseServiceInterface {
 	public Course getCourse(String code);
 	public Course getCourse(Long id);
 	public List<Course> getCourseList();
+	public Course getCourseByCode(String code);
 }

@@ -105,17 +105,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 				    -->
 				    <div class="help-block with-errors" th:if="${#fields.hasErrors('entryName')}" th:errors="*{entryName}"></div>
 				  </div>
-				  <!--
-				  <div class="form-group">
-				    <label for="course">Course:</label>
-				    <select th:field="*{courses}" th:multiple="multiple" class="form-control" id="course">
-				      <option
-				      	th:each="kozi: ${allCourses}" 
-				      	th:value="${kozi.id}"
-				      	th:text="${kozi}">Machine Learning</option>
-				    </select>
-				  </div>
-				  -->
 				  <div class="form-group">
 				    <label for="endDate">End date</label>
 				    <div class='input-group date'>
@@ -135,6 +124,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 	                    </span>
 	                    <div class="help-block with-errors" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
 	                </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="blocks">Blocks:</label>
+				    <select th:field="*{blocks}" th:multiple="multiple" class="form-control" id="blocks">
+				      <option
+				      	th:each="block: ${allBlocks}" 
+				      	th:value="${block.id}"
+				      	th:text="${block}">January 2018, 2018-01-15</option>
+				    </select>
 				  </div>
 				  <div class="form-group text-right">
 				  	<label for="submitButton">
