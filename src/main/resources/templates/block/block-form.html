@@ -6,25 +6,35 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 	<head>
 		<title th:text="#{index.title}">MUMSched</title>
-		<th:block layout:fragment="head">
-			<script th:inline="javascript">
-				$( function() {
-				    $( "#enddate" ).datepicker({
-				      changeMonth: true,
-				      changeYear: true,
-				      dateFormat: "yy-mm-dd"
-				    });
-				  } );
-			  	$( function() {
-				    $( "#startdate" ).datepicker({
-				      changeMonth: true,
-				      changeYear: true,
-				      dateFormat: "yy-mm-dd"
-				    });
-				  } );
-		  	</script>
-		</th:block>
+		<!-- Bootstrap core CSS -->
+		<link th:href="@{/standard/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 		
+		<!-- Custom fonts for this template -->
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
+		<link th:href="@{/standard/jquery/ui/jquery-ui.min.css}" rel="stylesheet" />
+		<!-- Custom styles for this template -->
+		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		
+		<!-- <th:block layout:fragment="head"> -->
+		<script th:inline="javascript">
+			$( function() {
+			    $( "#enddate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+
+			    $( "#startdate" ).datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      dateFormat: "yy-mm-dd"
+			    });
+			  } );
+	  	</script>
+		<!-- </th:block> -->
 	</head>
 
 	<body>
@@ -75,5 +85,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 				</div>
 			</div>
 		</th:block>
+		
+		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
+		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
+  		<script th:src="@{/standard/jquery/ui/jquery-ui.min.js}"></script>
+		<script th:src="@{/js/mumsched.js}"></script>
 	</body>
 </html>
