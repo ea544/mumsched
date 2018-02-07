@@ -19,7 +19,7 @@ public interface ScheduleServiceInterface {
 
 	public void checkUpdateRequirements(Schedule schedule);
 
-	public void updateSchedule(Schedule schedule);
+	public Schedule updateSchedule(Schedule schedule);
 
 	public void checkDeleteRequirements(long id);
 

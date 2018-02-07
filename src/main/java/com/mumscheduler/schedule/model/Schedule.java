@@ -1,15 +1,12 @@
 package com.mumscheduler.schedule.model;
 
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -29,9 +26,6 @@ public class Schedule {
 	@NotNull(message = "A valid entry is needed.")
 	@OneToOne
 	private Entry entry;
-	// @ElementCollection
-	// @OneToMany
-	// private Set<Block> blocks;
 
 	@Enumerated(EnumType.STRING)
 	private ScheduleStatus status = ScheduleStatus.DRAFT;

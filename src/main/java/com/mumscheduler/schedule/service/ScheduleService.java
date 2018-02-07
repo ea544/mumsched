@@ -1,7 +1,6 @@
 package com.mumscheduler.schedule.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mumscheduler.block.model.Block;
-import com.mumscheduler.entry.model.Entry;
 import com.mumscheduler.schedule.factory.ScheduleFactory;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
@@ -52,7 +50,7 @@ public class ScheduleService implements ScheduleServiceInterface {
 		/*
 		 * TODO: Change status and save.
 		 */
-		Schedule s = repo.save(sf.getSchedule());
+		Schedule s = updateSchedule(sf.getSchedule());
 		sf.setSchedule(s);
 
 		return sf;
@@ -67,8 +65,9 @@ public class ScheduleService implements ScheduleServiceInterface {
 	}
 
 	@Override
-	public void updateSchedule(Schedule schedule) {
+	public Schedule updateSchedule(Schedule schedule) {
 		Schedule s = repo.save(schedule);
+		return s;
 	}
 
 	@Override
@@ -124,7 +123,6 @@ public class ScheduleService implements ScheduleServiceInterface {
 			 * residents
 			 */
 
-			Set<Block> blocks = sf.getBlocksForSchedule();
 			sf = checkSection(sf, sf.getFirstBlock(), sf.getFppEstimate(), ScheduleFactory.FPP_COURSE_CODE);
 			sf = checkSection(sf, sf.getFirstBlock(), sf.getMppEstimate(), ScheduleFactory.MPP_COURSE_CODE);
 			sf = checkSection(sf, sf.getSecondBlock(), sf.getFppEstimate(), ScheduleFactory.MPP_COURSE_CODE);

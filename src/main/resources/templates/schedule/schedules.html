@@ -89,12 +89,14 @@
 								</th:block> <th:block th:if="! ${s.status.name() == 'APPROVED'}">
 									<mark th:text="${s.status}" class="text-primary"></mark>
 								</th:block></td>
-							<td><th:block th:if="! ${s.status.name() == 'APPROVED'}">
-									<a href="#">Generate</a>
-								</th:block> <th:block th:if="${s.status.name() == 'APPROVED'}">
-									<a th:href="|/s?id=${s.id}|" th:text="View"></a>
-								</th:block><strong> | </strong> <a href="#">Edit</a> <strong> | </strong><a
-								href="#">Delete</a></td>
+							<td>
+								<!-- <th:block th:if="! ${s.status.name() == 'APPROVED'}"> --> <!-- <a href="#">Generate</a> -->
+								<!-- 								</th:block>  --> <!-- <th:block th:if="${s.status.name() == 'APPROVED'}"> -->
+								<!-- <a th:href="|/s?id=${s.id}|" th:text="View"></a> --> <!-- </th:block -->
+								<!-- 								><strong> | </strong>  --> 
+								<a href="#">Edit</a> <strong>
+									| </strong> <a href="#">Delete</a>
+							</td>
 						</tr>
 					</th:block>
 				</tbody>
