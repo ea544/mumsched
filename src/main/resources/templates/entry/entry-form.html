@@ -82,7 +82,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 		<div class="row">
 			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 			<div class="span4 offset4 well">
-				<form action="#" th:action="@{/entries}" th:object="${newEntry}" method="post">
+				<form action="#" th:action="@{/entries}" th:object="${entry}" method="post">
 				  <div class="form-group">
 				    <label for="fppNumber">FPP number</label>
 				    <input type="text" th:field="*{fppNum}" class="form-control" id="fppNumber" placeholder="FPP number of students" />

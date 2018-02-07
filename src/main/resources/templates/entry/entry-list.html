@@ -80,8 +80,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 							<td th:text="${entry.entryName}">shildebrand@mumsched.tao</td>
 							<td th:text="${entry.endDate}">Sovello</td> 
 							<td th:text="${entry.startDate}">Hildebrand</td> 
-							<td><a th:href="@{'/sectionsUpdate/'+${entry.id}+'?update=1'}">Update</a> | 
-							<a th:href="@{'/sectionsDelete/'+${entry.id}+'?update=0'}">Delete</a></td>
+							<td><a th:href="@{'/entriesUpdate/'+${entry.id}+'?update=1'}">Update</a> | 
+							<a th:href="@{'/entriesDelete/'+${entry.id}+'?update=0'}">Delete</a></td>
 						</tr>
 						</th:block>
 					</tbody>
