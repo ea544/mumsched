@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.mumscheduler.block.model.Block;
 import com.mumscheduler.course.model.Course;
-import com.mumscheduler.course.service.CourseService;
+import com.mumscheduler.course.service.CourseServiceInterface;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
 import com.mumscheduler.schedule.service.ScheduleServiceInterface;
@@ -17,6 +18,8 @@ import com.mumscheduler.section.model.Section;
 public final class ScheduleFactory {
 
 	private static final HashMap<String, ScheduleFacade> SF_FAILED = new HashMap<>();
+
+	public static CourseServiceInterface courseService;
 
 	public static final String FPP_COURSE_CODE = "FPP";
 	public static final String INSUFFICIENT_BLOCKS = "You don't have a sufficient number of blocks to generate this schedule.";
@@ -47,8 +50,8 @@ public final class ScheduleFactory {
 		}
 	}
 
-	private static CourseService getCourseService() {
-		return new CourseService();
+	public static CourseServiceInterface getCourseService() {
+		return ScheduleFactory.courseService;
 	}
 
 	private static String getCourseResponse(String courseCode) {

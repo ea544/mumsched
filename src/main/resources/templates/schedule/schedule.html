@@ -70,46 +70,79 @@
 					Schedule</a>
 			</th:block>
 		</div>
-		<div class="row well">
-			<th:block th:if="${sf.actionSuccess}">
-			Name:
-			<div th:text="${sf.schedule.name}"></div>
-				<br />
-			</th:block>
-			<th:block th:if="! ${sf.actionSuccess}">
-				<span th:text="${sf.actionResponse}"></span>
-			</th:block>
-		</div>
 
-		<th:block
-			th:if="${sf.actionSuccess and sf.schedule.entry.blocks.size() &gt; 0}">
+		<th:block th:if="${sf.actionSuccess}">
 			<div class="row well">
-				<strong
-					th:text="|${sf.schedule.entry.entryName}: ${#dates.format(sf.schedule.entry.startDate, 'MM/yyyy')} - ${#dates.format(sf.schedule.entry.endDate, 'MM/yyyy')}|">
-				</strong> <br />
-				<table class="table table-bordered">
+				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col">Block</th>
-							<th scope="col">Dates</th>
-							<th scope="col">Courses</th>
+							<th scope="col"></th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<th:block th:each="b : ${sf.schedule.entry.blocks}">
-							<tr>
-								<td th:text="${b.name}"></td>
-								<td
-									th:text="|${#dates.format(b.startdate, 'MM/dd/yyyy')} - ${#dates.format(b.enddate, 'MM/dd/yyyy')}|">
-								</td>
-								<td><th:block th:each="s : ${b.sections}">
-										<p th:text="${s.course.name}"></p>
-										<br />
-									</th:block></td>
-							</tr>
-						</th:block>
+						<tr>
+							<td>Name:</td>
+							<td th:text="${sf.schedule.name}"></td>
+						</tr>
+						<tr>
+							<td>Entry:</td>
+							<td
+								th:text="|${sf.schedule.entry.entryName}: ${#dates.format(sf.schedule.entry.startDate, 'MM/yyyy')} - ${#dates.format(sf.schedule.entry.endDate, 'MM/yyyy')}|">
+							</td>
+						</tr>
+						<tr>
+							<td>Blocks:</td>
+							<td th:text="|${sf.schedule.entry.blocks.size()} available|"></td>
+						</tr>
+						<tr>
+							<td>Status:</td>
+							<td><th:block
+									th:if="${sf.schedule.status.name() == 'APPROVED'}">
+									<mark th:text="${sf.schedule.status}" class="text-success"></mark>
+								</th:block> <th:block th:if="! ${sf.schedule.status.name() == 'APPROVED'}">
+									<mark th:text="${sf.schedule.status}" class="text-primary"></mark>
+								</th:block></td>
+						</tr>
 					</tbody>
 				</table>
+			</div>
+
+			<th:block
+				th:if="${sf.actionSuccess and sf.schedule.entry.blocks.size() &gt; 0}">
+				<div class="row well">
+					<strong>Details: </strong> <br /> <br />
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">Block</th>
+								<th scope="col">Dates</th>
+								<th scope="col">Courses</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="b : ${sf.schedule.entry.blocks}">
+								<tr>
+									<td th:text="${b.name}"></td>
+									<td
+										th:text="|${#dates.format(b.startdate, 'MM/dd/yyyy')} - ${#dates.format(b.enddate, 'MM/dd/yyyy')}|">
+									</td>
+									<td><th:block th:each="s : ${b.sections}">
+											<p th:text="${s.course.name}"></p>
+											<br />
+										</th:block></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+		</th:block>
+
+		<th:block th:if="! ${sf.actionSuccess}">
+			<div class="row well">
+				<p th:text="${sf.actionResponse}"
+					style="font-weight: 600; color: red;"></p>
 			</div>
 		</th:block>
 	</div>
