@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html layout:decorator="fragments/layout"
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+	<head>
+		<title th:text="#{index.title}">MUMSched</title>
+	</head>
+
+	<body>
+		<th:block layout:fragment="content">
+			<div class="container">
+				<div class="row">
+					<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
+					<div class="span4 offset4 well">
+						<table class="table table-hover">
+							<caption><span th:text="${block}">January 2019 - 2018-01-15</span></caption>
+							<tbody>
+								<tr>
+									<th>Start Date</th><td th:text="${block.startdate}">2018-01-15</td>
+								</tr>
+								<tr>
+									<th>End Date</th><td th:text="${block.enddate}">2018-02-16</td>
+								</tr>
+								<th:block th:if="${not #lists.isEmpty(block.sections)}">
+								<tr>
+									<th th:rowspan="${#lists.size(block.sections)}">Sections</th>
+									<th:block th:each="section: ${block.sections}">
+						      			<td th:text="${section.faculty}+' '+${section.capacity}">Sovello Hildebrand - 25</td>
+									</th:block>
+								</tr>
+								</th:block>
+							</tbody>
+						</table>
+					
+					</div>
+				</div>
+			</div>
+		</th:block>
+	</body>
+</html>

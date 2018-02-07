@@ -67,7 +67,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 					<thead>
 						<tr> 
 							<th>#</th> <th>FPP number</th> <th>MPP number</th> <th>Entry name</th>
-							<th>End date</th> <th>Start date</th> 
+							<th>End date</th> <th>Start date</th> <th>Block</th>
 						</tr>
 					</thead>
 					<tbody> 
@@ -80,8 +80,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 							<td th:text="${entry.entryName}">shildebrand@mumsched.tao</td>
 							<td th:text="${entry.endDate}">Sovello</td> 
 							<td th:text="${entry.startDate}">Hildebrand</td> 
+							<td><a href="" data-toggle="modal" data-target="#myModal">View block</a></td>
+							<!--<td><a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View block</a></td> -->
+							
 							<td><a th:href="@{'/entriesUpdate/'+${entry.id}+'?update=1'}">Update</a> | 
 							<a th:href="@{'/entriesDelete/'+${entry.id}+'?update=0'}">Delete</a></td>
+							
+							
 						</tr>
 						</th:block>
 					</tbody>
@@ -91,6 +96,44 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 				<p><a th:href="@{/entries/new}">Create Entry</a></p>
 			</div>
 		</div>
+		
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">List of Block</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+          <label for="blocks">Blocks:</label>
+          	<th:block th:each="block, iterBlock : ${allBlocks}" id="blocks"> <br />
+		  		<td th:text="${block}"></td> 
+          	
+            </th:block>
+            <!-- 
+            <label for="blocks">Blocks:</label>
+				    <select th:multiple="multiple" class="form-control" id="blocks">
+				      <option
+				      	th:each="block: ${allBlocks}" 
+				      	th:value="${block.id}"
+				      	th:text="${block}"></option>
+				    </select>
+			-->	    
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- End of Modal content -->
+		
 	</div>
 	<div class="social-icons">
 		<ul class="list-unstyled text-center mb-0">

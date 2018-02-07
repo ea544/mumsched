@@ -38,6 +38,12 @@ public class EntryController
 		List<Entry> entries = entryService.getEntryList();
 		model.addAttribute("entries", entries);
 		model.addAttribute("title", title);
+		model.addAttribute("allBlocks", blockService.getBlockList());
+		for(Entry e : entries)
+		{
+			System.out.println(e.getBlocks());
+		}
+		
 		return "entry/entry-list";
 	}
 	
@@ -75,6 +81,7 @@ public class EntryController
 		model.addAttribute("entry", entry);
 		//model.addAttribute("faculties",faculties);
 		model.addAttribute("entries", entries);
+		model.addAttribute("allBlocks", blockService.getBlockList());
 		model.addAttribute("title", title);
 		
 		//System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
@@ -89,5 +96,7 @@ public class EntryController
 		entryService.delete(id);
 		return "redirect:/entries";
 	}
+	
+	
 	
 }
