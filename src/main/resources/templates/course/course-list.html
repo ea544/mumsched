@@ -1,138 +1,45 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html layout:decorator="fragments/layout"
+xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		<meta name="MUM Scheduler Application" content="" />
-		<meta name="Sovello" content="" />
-		
-		<title>MUMSched :: Home</title>
-		
-		<!-- Bootstrap core CSS -->
-		<link th:href="@{/standard/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-		
-		<!-- Custom fonts for this template -->
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
-		<!-- Custom styles for this template -->
-		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		<title th:text="#{index.title}">MUMSched</title>
 	</head>
 
 	<body>
-		<div class="overlay"></div>
-	
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" 
-	      data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" th:href="@{/home}">MUM</a>
-	    </div>
-	
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	      	<th:block sec:authorize="isAuthenticated()">
-	      	<li th:class="${activeTab == 'dashboard'} ? 'active' : null"><a th:href="@{/dashboard}">[Dashboard]</a></li>
-	      	<li th:class="${activeTab == 'entries'} ? 'active' : null"><a th:href="@{/entries}">[Entries]</a></li>
-	      	<li th:class="${activeTab == 'blocks'} ? 'active' : null"><a th:href="@{/blocks}">[Blocks]</a></li>
-	      	<li th:class="${activeTab == 'courses'} ? 'active' : null"><a th:href="@{/courses}">[Courses]</a></li>
-	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
-	      	<li th:class="${activeTab == 'sections'} ? 'active' : null"><a th:href="@{/sections}">[Sections]</a></li>
-	      	<li th:class="${activeTab == 'schedules'} ? 'active' : null"><a th:href="@{/schedules}">[Schedules]</a></li>
-	      	</th:block>
-	      	<li><a th:href="@{/home}">Home</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-	          role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
-		        <li role="separator" class="divider"></li>
-		        <th:block sec:authorize="isAuthenticated()">
-		        <li><a th:href="@{/logout}">Logout</a></li>
-		        </th:block>
-	          </ul>
-	        </li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-	
-	<div class="container">
-		<div class="row well">
-			<div class="col-md-9">
-				<table class="table table-hover">
-					<thead>
-						<tr> 
-							<th>#</th> <th>Course Code</th> <th>Course Level</th> <th>Course Name</th><th>Maximum Capacity</th><th>Action</th> 
-						</tr>
-					</thead>
-					<tbody>
-						<th:block th:each="course, idx : ${courses}">
-						<tr> 
-							<th scope="row" th:text="${idx.count}">1</th> 
-							<td th:text="${course.code}">SW</td> 
-							<td th:text="${course.level}">425</td> 
-							<td th:text="${course.name}">Software Engineering</td>
-							<td th:text="${course.capacity}">25</td>
-							<td><a th:href="@{'/courses/'+${course.id}+'?update=1'}">Update</a> | 
-							<a th:href="@{'/courses/'+${course.id}+'?update=0'}">Delete</a> | 
-							<a th:href="@{'/courses/'+${course.id}+'/profile'}">View Profile</a></td>
-						</tr>
-						</th:block>
-					</tbody>
-				</table>    
+		<th:block layout:fragment="content">
+			<div class="container">
+				<div class="row well">
+					<div class="col-md-9">
+						<table class="table table-hover">
+							<thead>
+								<tr> 
+									<th>#</th> <th>Course Code</th> <th>Course Level</th> <th>Course Name</th><th>Maximum Capacity</th><th>Action</th> 
+								</tr>
+							</thead>
+							<tbody>
+								<th:block th:each="course, idx : ${courses}">
+								<tr> 
+									<th scope="row" th:text="${idx.count}">1</th> 
+									<td th:text="${course.code}">SW</td> 
+									<td th:text="${course.level}">425</td> 
+									<td th:text="${course.name}">Software Engineering</td>
+									<td th:text="${course.capacity}">25</td>
+									<td><a th:href="@{'/courses/'+${course.id}+'?update=1'}">Update</a> | 
+									<a th:href="@{'/courses/'+${course.id}+'?update=0'}">Delete</a> | 
+									<a th:href="@{'/courses/'+${course.id}+'/profile'}">View Profile</a></td>
+								</tr>
+								</th:block>
+							</tbody>
+						</table>    
+					</div>
+					<div class="col-md-3">
+						<p><a th:href="@{/courses/new}">Create a new Course</a></p>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-3">
-				<p><a th:href="@{/courses/new}">Create a new Course</a></p>
-			</div>
-		</div>
-	</div>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container">
-	    &copy; 2018 MUMSched - Group 11
-	    <div class="social-icons">
-		<ul class="list-inline text-center">
-			<li>
-				<a href="#">
-					<i class="fa fa-twitter"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-			    	<i class="fa fa-facebook"></i>
-			  	</a>
-			</li>
-			<li>
-			  	<a href="#">
-			    	<i class="fa fa-instagram"></i>
-			  	</a>
-			</li>
-		</ul>
-	</div>
-	  </div>
-	</nav>
-	
-		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
-		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
-		
-		<!-- Plugin JavaScript -->
-		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
-		<!-- Custom scripts for this template -->
-		<script th:src="@{/js/mumsched.js}"></script>
-	
+		</th:block>
 	</body>
 </html>

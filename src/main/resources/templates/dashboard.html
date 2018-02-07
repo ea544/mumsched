@@ -1,125 +1,67 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
-
+<html layout:decorator="fragments/layout"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		<meta name="MUM Scheduler Application" content="" />
-		<meta name="Sovello" content="" />
-		
-		<title>MUMSched :: Home</title>
-		
-		<!-- Bootstrap core CSS -->
-		<link th:href="@{/standard/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-		
-		<!-- Custom fonts for this template -->
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
-		<!-- Custom styles for this template -->
-		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
-		<link th:href="@{/css/dashboard.css}" rel="stylesheet" />
+		<title th:text="#{index.title}">MUMSched</title>
+		<th:block layout:fragment="head">
+			<link th:href="@{/css/dashboard.css}" rel="stylesheet" />
+		</th:block>
 	</head>
 
 	<body>
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" 
-	      data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" th:href="@{/home}">MUM</a>
-	    </div>
-	
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	      	<li><a th:href="@{/logout}">Logout</a></li>
-	      	<li><a th:href="@{/home}">Home</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-	          role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
-		        <li role="separator" class="divider"></li>
-		        <li><a th:href="@{/logout}">Logout</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-	
-	<div class="container" id="tourpackages-carousel">
-		<div class="row">
-			<div class="col-md-12" role="main">
-			<div class="bs-docs-section">
-				<div class="bs-glyphicons">
-					<ul class="bs-glyphicons-list nav">
-						<li role="presentation"><a th:href="@{/schedules}">
-							<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-							<span class="glyphicon-class">Schedules</span>
-							</a>
-						</li>
-						<li role="presentation"><a th:href="@{/sections}">
-							<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-							<span class="glyphicon-class">Sections</span></a>
-						</li>
-						<li role="presentation"><a th:href="@{/faculty}">
-							<span class="glyphicon glyphicon-education" aria-hidden="true"></span>
-							<span class="glyphicon-class">Faculty</span></a>
-						</li>
-						<li role="presentation"><a th:href="@{/courses}">
-							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-							<span class="glyphicon-class">Courses</span></a>
-						</li>
-						<li role="presentation"><a th:href="@{/entries}">
-							<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-							<span class="glyphicon-class">Entries</span></a>
-						</li>
-						<li role="presentation"><a th:href="@{/blocks}">
-							<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-							<span class="glyphicon-class">Blocks</span></a>
-						</li>
-						<li  role="presentation"><a th:href="@{/users}">
-							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							<span class="glyphicon-class">Users</span></a>
-						</li>
-						
-						
-						<li role="presentation"><a th:href="@{/specializations}">
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-							<span class="glyphicon-class">Specializations</span></a>
-						</li><li role="presentation"><a th:href="@{/regsection}">
-							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-							<span class="glyphicon-class">Register Section</span></a>
-						</li>
-					</ul>
+		<th:block layout:fragment="content">
+			<div class="container" id="tourpackages-carousel">
+				<div class="row">
+					<div class="col-md-12" role="main">
+						<div class="bs-docs-section">
+							<div class="bs-glyphicons">
+								<ul class="bs-glyphicons-list nav">
+									<li role="presentation"><a th:href="@{/schedules}">
+										<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+										<span class="glyphicon-class">Schedules</span>
+										</a>
+									</li>
+									<li role="presentation"><a th:href="@{/sections}">
+										<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+										<span class="glyphicon-class">Sections</span></a>
+									</li>
+									<li role="presentation"><a th:href="@{/faculty}">
+										<span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+										<span class="glyphicon-class">Faculty</span></a>
+									</li>
+									<li role="presentation"><a th:href="@{/courses}">
+										<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+										<span class="glyphicon-class">Courses</span></a>
+									</li>
+									<li role="presentation"><a th:href="@{/entries}">
+										<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+										<span class="glyphicon-class">Entries</span></a>
+									</li>
+									<li role="presentation"><a th:href="@{/blocks}">
+										<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+										<span class="glyphicon-class">Blocks</span></a>
+									</li>
+									<li  role="presentation"><a th:href="@{/users}">
+										<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+										<span class="glyphicon-class">Users</span></a>
+									</li>
+									
+									
+									<li role="presentation"><a th:href="@{/specializations}">
+										<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+										<span class="glyphicon-class">Specializations</span></a>
+									</li><li role="presentation"><a th:href="@{/regsection}">
+										<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+										<span class="glyphicon-class">Register Section</span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+			        </div>	
 				</div>
 			</div>
-	          	
-	        </div>	
-		</div>
-	</div>
-	
-	
-		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
-		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
-		
-		<!-- Plugin JavaScript -->
-		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
-		<!-- Custom scripts for this template -->
-		<script th:src="@{/js/mumsched.js}"></script>
-	
+		</th:block>
 	</body>
 </html>

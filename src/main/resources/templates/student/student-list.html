@@ -21,22 +21,22 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 								</tr>
 							</thead>
 							<tbody> 
-								<th:block th:each="faculty, idx : ${faculties}">
+								<th:block th:each="student, idx : ${students}">
 								<tr> 
 									<th scope="row" th:text="${idx.count}">1</th> 
-									<td th:text="${faculty.firstname}">Sovello</td> 
-									<td th:text="${faculty.lastname}">Hildebrand</td> 
-									<td th:text="${faculty.email}">shildebrand@mumsched.tao</td>
-									<td><a th:href="@{'/faculty/'+${faculty.id}+'?update=1'}">Update</a> | 
-									<a th:href="@{'/faculty/'+${faculty.id}+'?update=0'}">Delete</a> | 
-									<a th:href="@{'/faculty/'+${faculty.id}+'/profile'}">View Faculty Profile</a></td>
+									<td th:text="${student.firstname}">Sovello</td> 
+									<td th:text="${student.lastname}">Hildebrand</td> 
+									<td th:text="${student.email}">shildebrand@mumsched.tao</td>
+									<td><a th:href="@{'/students/'+${student.id}+'?update=1'}">Update</a> | 
+									<a th:href="@{'/students/'+${student.id}+'?update=0'}">Delete</a> | 
+									<a th:href="@{'/students/'+${student.id}+'/profile'}">View Student Profile</a></td>
 								</tr>
 								</th:block>
 							</tbody>
 						</table>    
 					</div>
 					<div class="col-md-3">
-						<p><a th:href="@{/faculty/new}">Create Faculty Profile</a></p>
+						<p><a th:href="@{/students/new}">Create Student Profile</a></p>
 					</div>
 				</div>
 			</div>

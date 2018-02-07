@@ -1,143 +1,60 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html layout:decorator="fragments/layout"
+xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		<meta name="MUM Scheduler Application" content="" />
-		<meta name="Sovello" content="" />
-		
-		<title>MUMSched :: Home</title>
-		
-		<!-- Bootstrap core CSS -->
-		<link th:href="@{/standard/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-		
-		<!-- Custom fonts for this template -->
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-		<link th:href="@{/standard/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-		
-		<!-- Custom styles for this template -->
-		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		<title th:text="#{index.title}">MUMSched</title>
 	</head>
 
 	<body>
-		<div class="overlay"></div>
-	
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" 
-	      data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" th:href="@{/home}">MUM</a>
-	    </div>
-	
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	      	<li><a th:href="@{/logout}">Logout</a></li>
-	      	<li><a th:href="@{/home}">Home</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-	          role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li class="active"><a href="">Home<span class="sr-only">(current)</span></a></li>
-		        <li role="separator" class="divider"></li>
-		        <li><a th:href="@{/logout}">Logout</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-	
-	<div class="container">
-		<div class="row">
-			<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
-			<div class="span4 offset4 well">
-				<form action="#" th:action="@{/courses}" th:object="${course}" method="post">
-				  <div class="form-group">
-				    <label for="courseName">Course Name</label>
-				    <input type="text" th:field="*{name}" class="form-control" id="courseName" placeholder="e.g. Software Engineering" />
-				  </div>
-				  <input type="hidden" th:field="*{id}" />
-				  <div class="form-group">
-				    <label for="courseLevel">Course Level</label>
-				    <input type="number" th:field="*{level}" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></div>
-				  </div>
-				  <div class="form-group">
-				    <label for="courseCode">Course Code</label>
-				    <input type="text" th:field="*{code}" class="form-control" id="courseCode" placeholder="e.g. ML, SW" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
-				  </div>
-				 <div class="form-group">
-				    <label for="courseCode">Maximum Capacity</label>
-				    <input type="number" th:field="*{capacity}" class="form-control" id="courseCapacity" placeholder="90" />
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
-				  </div>
-				  <div class="form-group">
-				    <label for="prerequisites">Prerequisites:</label>
-				    <div class="help-block with-errors" th:if="${#fields.hasErrors('prerequisites')}" th:errors="*{prerequisites}"></div>
-				    <select th:field="*{prerequisites}" th:multiple="multiple" class="form-control" id="prerequisites">
-				      <option
-				      	th:each="prerequisite: ${allPrerequisites}" 
-				      	th:value="${prerequisite.id}"
-				      	th:text="${prerequisite}">Machine Learning</option>
-				    </select>
-				  </div>
-				  <div class="form-group text-right">
-				  	<label for="submitButton">
-				  		<a th:href="@{/courses}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
-				  		<button type="submit" class="btn btn-default btn-group">Save</button>
-				  	</label>
-				  </div>
-				</form>    
+		<th:block layout:fragment="content">
+			<div class="container">
+				<div class="row">
+					<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
+					<div class="span4 offset4 well">
+						<form action="#" th:action="@{/courses}" th:object="${course}" method="post">
+						  <div class="form-group">
+						    <label for="courseName">Course Name</label>
+						    <input type="text" th:field="*{name}" class="form-control" id="courseName" placeholder="e.g. Software Engineering" />
+						  </div>
+						  <input type="hidden" th:field="*{id}" />
+						  <div class="form-group">
+						    <label for="courseLevel">Course Level</label>
+						    <input type="number" th:field="*{level}" class="form-control" id="courseLevel" placeholder="e.g. 400, 500" />
+						    <div class="help-block with-errors" th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></div>
+						  </div>
+						  <div class="form-group">
+						    <label for="courseCode">Course Code</label>
+						    <input type="text" th:field="*{code}" class="form-control" id="courseCode" placeholder="e.g. ML, SW" />
+						    <div class="help-block with-errors" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
+						  </div>
+						 <div class="form-group">
+						    <label for="courseCode">Maximum Capacity</label>
+						    <input type="number" th:field="*{capacity}" class="form-control" id="courseCapacity" placeholder="90" />
+						    <div class="help-block with-errors" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
+						  </div>
+						  <div class="form-group">
+						    <label for="prerequisites">Prerequisites:</label>
+						    <div class="help-block with-errors" th:if="${#fields.hasErrors('prerequisites')}" th:errors="*{prerequisites}"></div>
+						    <select th:field="*{prerequisites}" th:multiple="multiple" class="form-control" id="prerequisites">
+						      <option
+						      	th:each="prerequisite: ${allPrerequisites}" 
+						      	th:value="${prerequisite.id}"
+						      	th:text="${prerequisite}">Machine Learning</option>
+						    </select>
+						  </div>
+						  <div class="form-group text-right">
+						  	<label for="submitButton">
+						  		<a th:href="@{/courses}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
+						  		<button type="submit" class="btn btn-default btn-group">Save</button>
+						  	</label>
+						  </div>
+						</form>    
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container">
-	    &copy; 2018 MUMSched - Group 11
-	    <div class="social-icons">
-		<ul class="list-inline text-center">
-			<li>
-				<a href="#">
-					<i class="fa fa-twitter"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-			    	<i class="fa fa-facebook"></i>
-			  	</a>
-			</li>
-			<li>
-			  	<a href="#">
-			    	<i class="fa fa-instagram"></i>
-			  	</a>
-			</li>
-		</ul>
-	</div>
-	  </div>
-	</nav>
-	
-		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
-		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
-		
-		<!-- Plugin JavaScript -->
-		<script th:src="@{/standard/vide/jquery.vide.min.js}"></script>
-		
-		<!-- Custom scripts for this template -->
-		<script th:src="@{/js/mumsched.js}"></script>
-	
+		</th:block>
 	</body>
 </html>
