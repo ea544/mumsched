@@ -5,11 +5,13 @@ import com.mumscheduler.block.model.Block;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -41,7 +43,8 @@ public class Entry
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
 	
-	@ManyToMany
+	@OrderBy("startdate")
+	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Block> blocks;
 	
 	public Entry() {}

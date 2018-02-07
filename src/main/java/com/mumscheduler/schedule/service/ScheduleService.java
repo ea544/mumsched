@@ -12,6 +12,7 @@ import com.mumscheduler.course.service.CourseServiceInterface;
 import com.mumscheduler.schedule.factory.ScheduleFactory;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
+import com.mumscheduler.schedule.model.ScheduleStatus;
 import com.mumscheduler.schedule.repository.ScheduleRepository;
 import com.mumscheduler.section.model.Section;
 
@@ -20,7 +21,6 @@ public class ScheduleService implements ScheduleServiceInterface {
 
 	@Autowired
 	private ScheduleRepository repo;
-
 
 	@Autowired
 	public void setCourseService(CourseServiceInterface svc) {
@@ -57,7 +57,10 @@ public class ScheduleService implements ScheduleServiceInterface {
 		/*
 		 * TODO: Change status and save.
 		 */
+		sf = changeScheduleStatus(sf, ScheduleStatus.APPROVED);
+
 		Schedule s = updateSchedule(sf.getSchedule());
+
 		sf.setSchedule(s);
 
 		return sf;
@@ -99,9 +102,7 @@ public class ScheduleService implements ScheduleServiceInterface {
 			 */
 			Set<Block> blocks = sf.getSchedule().getBlocks();
 
-			if (blocks.size() >= 10) {
-				sf = addBlocksToSchedule(sf, blocks);
-			} else {
+			if (blocks.size() < ScheduleFactory.MIN_BLOCKS_REQUIRED) {
 				sf.setActionSuccess(false);
 				sf.setActionResponse(ScheduleFactory.INSUFFICIENT_BLOCKS);
 			}
@@ -110,14 +111,15 @@ public class ScheduleService implements ScheduleServiceInterface {
 		return sf;
 	}
 
-	@Override
-	public ScheduleFacade addBlocksToSchedule(ScheduleFacade sf, Set<Block> blocks) {
-		if (sf.isActionSuccess()) {
-			sf.getSchedule().setBlocks(blocks);
-		}
-
-		return sf;
-	}
+	// @Override
+	// public ScheduleFacade addBlocksToSchedule(ScheduleFacade sf, Set<Block>
+	// blocks) {
+	// if (sf.isActionSuccess()) {
+	// sf.getSchedule().setBlocks(blocks);
+	// }
+	//
+	// return sf;
+	// }
 
 	@Override
 	public ScheduleFacade checkSectionRequirements(ScheduleFacade sf) {
@@ -175,6 +177,14 @@ public class ScheduleService implements ScheduleServiceInterface {
 			if (sf.isActionSuccess()) {
 				sf = checkSection(sf, b, expectedCapacity);
 			}
+		}
+
+		return sf;
+	}
+
+	public static ScheduleFacade changeScheduleStatus(ScheduleFacade sf, ScheduleStatus status) {
+		if (sf.isActionSuccess()) {
+			sf.getSchedule().setStatus(status);
 		}
 
 		return sf;

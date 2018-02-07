@@ -99,9 +99,11 @@
 							<td>Status:</td>
 							<td><th:block
 									th:if="${sf.schedule.status.name() == 'APPROVED'}">
-									<mark th:text="${sf.schedule.status}" class="text-success"></mark>
+									<mark th:text="${sf.schedule.status}" class="text-success"
+										style="font-weight: 600;"></mark>
 								</th:block> <th:block th:if="! ${sf.schedule.status.name() == 'APPROVED'}">
-									<mark th:text="${sf.schedule.status}" class="text-primary"></mark>
+									<mark th:text="${sf.schedule.status}" class="text-primary"
+										style="font-weight: 600;"></mark>
 								</th:block></td>
 						</tr>
 					</tbody>
@@ -128,7 +130,7 @@
 										th:text="|${#dates.format(b.startdate, 'MM/dd/yyyy')} - ${#dates.format(b.enddate, 'MM/dd/yyyy')}|">
 									</td>
 									<td><th:block th:each="s : ${b.sections}">
-											<p th:text="${s.course.name}"></p>
+											<span th:text="${s.course.name}"></span>
 											<br />
 										</th:block></td>
 								</tr>

@@ -85,9 +85,11 @@
 							</td>
 							<td th:text="|${s.entry.blocks.size()} available|"></td>
 							<td><th:block th:if="${s.status.name() == 'APPROVED'}">
-									<mark th:text="${s.status}" class="text-success"></mark>
+									<mark th:text="${s.status}" class="text-success"
+										style="font-weight: 600;"></mark>
 								</th:block> <th:block th:if="! ${s.status.name() == 'APPROVED'}">
-									<mark th:text="${s.status}" class="text-primary"></mark>
+									<mark th:text="${s.status}" class="text-primary"
+										style="font-weight: 600;"></mark>
 								</th:block></td>
 							<td>
 								<!-- <th:block th:if="! ${s.status.name() == 'APPROVED'}"> --> <!-- <a href="#">Generate</a> -->

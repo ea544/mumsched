@@ -2,6 +2,7 @@ package com.mumscheduler.schedule.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,7 +25,7 @@ public class Schedule {
 	@NotEmpty(message = "A name for the schedule is needed.")
 	private String name;
 	@NotNull(message = "A valid entry is needed.")
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Entry entry;
 
 	@Enumerated(EnumType.STRING)

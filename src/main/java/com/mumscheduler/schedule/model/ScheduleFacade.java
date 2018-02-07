@@ -61,7 +61,7 @@ public class ScheduleFacade {
 		return this.schedule.getEntry().getBlocks();
 	}
 
-	public Set<Section> getAllSections() {
+	public Set<Section> getSections() {
 		Set<Section> sections = new HashSet<Section>();
 
 		getBlocksForSchedule().forEach(b -> {

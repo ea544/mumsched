@@ -3,8 +3,8 @@ package com.mumscheduler.schedule.factory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.mumscheduler.block.model.Block;
@@ -23,8 +23,10 @@ public final class ScheduleFactory {
 
 	public static final String FPP_COURSE_CODE = "FPP";
 	public static final String INSUFFICIENT_BLOCKS = "You don't have a sufficient number of blocks to generate this schedule.";
+	public static final int MIN_BLOCKS_REQUIRED = 10;
 	public static final String MPP_COURSE_CODE = "MPP";
-	public static final String NO_COURSES_FOUND = "There are no available courses. You need at least one course";
+	public static final String NO_COURSES_FOUND = "You need at least one more course, FPP and MPP excluded.";
+	public static final String NO_COURSE_FOUND_FOR = "There is no course with code: ";
 	public static final String NO_SCHEDULE_FOUND = "No schedule found !";
 
 	private static String getSessionId() {
@@ -58,7 +60,7 @@ public final class ScheduleFactory {
 		if (courseCode == "") {
 			return NO_COURSES_FOUND;
 		} else {
-			return "There is no course with code: " + courseCode;
+			return NO_COURSE_FOUND_FOR + courseCode;
 		}
 	}
 
@@ -97,11 +99,15 @@ public final class ScheduleFactory {
 			 */
 			if (course != null) {
 				section.setCourse(course);
+				// section.setFaculty(null);
+
+				block.getSections().add(section);
+				sf.getSchedule().getBlocks().add(block);
+
 			} else {
 				sf.setActionSuccess(false);
 				sf.setActionResponse(getCourseResponse(courseCode));
 			}
-			section.setFaculty(null);
 		}
 
 		return sf;
@@ -110,8 +116,12 @@ public final class ScheduleFactory {
 	private static Course getCourseForSection() {
 		Course course = null;
 		List<Course> courses = getCourseService().getCourseList();
+		courses.sort((c1, c2) -> c1.getCapacity().compareTo(c2.getCapacity()));
 
-		if (courses.size() == 0) {
+		if (courses.size() > 0) {
+			courses = courses.stream()
+					.filter(c -> !(c.getCode().equals(FPP_COURSE_CODE) || c.getCode().equals(MPP_COURSE_CODE)))
+					.collect(Collectors.toList());
 			Random rand = new Random();
 			rand.nextInt(courses.size());
 
@@ -124,7 +134,7 @@ public final class ScheduleFactory {
 	private static Course getCourseForSection(String courseCode) {
 		List<Course> courses = getCourseService().getCourseList();
 
-		return courses.stream().filter(c -> c.getCode() == courseCode).distinct().findFirst().orElse(null);
+		return courses.stream().filter(c -> c.getCode().equals(courseCode)).distinct().findFirst().orElse(null);
 	}
 
 }

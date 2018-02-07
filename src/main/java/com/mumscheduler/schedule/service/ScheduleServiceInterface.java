@@ -27,7 +27,5 @@ public interface ScheduleServiceInterface {
 
 	public ScheduleFacade checkBlockRequirements(ScheduleFacade sf);
 
-	public ScheduleFacade addBlocksToSchedule(ScheduleFacade sf, Set<Block> blocks);
-
 	public ScheduleFacade checkSectionRequirements(ScheduleFacade sf);
 }

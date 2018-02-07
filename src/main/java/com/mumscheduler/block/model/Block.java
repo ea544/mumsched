@@ -5,6 +5,7 @@ import com.mumscheduler.section.model.Section;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Block {
 	@Temporal(TemporalType.DATE)
 	private Date enddate;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "block_sections", joinColumns = @JoinColumn(name = "block_id"), inverseJoinColumns = @JoinColumn(name = "section_id"))
 	private Set<Section> sections;
 
