@@ -35,6 +35,8 @@ public class InitialDataLoader implements ApplicationRunner {
 		 * Initialize roles
 		 */
 		roleService.save(new Role("ADMIN"));
+		roleService.save(new Role("STUDENT"));
+		roleService.save(new Role("FACULTY"));
 		
 		/**
 		 * Initialize the database with super user admin
@@ -44,7 +46,13 @@ public class InitialDataLoader implements ApplicationRunner {
 		user.setEmail(env.getProperty("mumsched.admin.email"));
 		user.setPassword(env.getProperty("mumsched.admin.password"));
 		userService.save(user, "ADMIN");
-		
+		User student = new User("student", "student");
+		student.setEmail(env.getProperty("mumsched.student.email"));
+		student.setPassword(env.getProperty("mumsched.student.password"));
+		userService.save(student, "STUDENT");
+		User faculty = new User("faculty", "faculty");
+		faculty.setEmail(env.getProperty("mumsched.faculty.email"));
+		faculty.setPassword(env.getProperty("mumsched.faculty.password"));
+		userService.save(faculty, "FACULTY");
 	}
-	
 }

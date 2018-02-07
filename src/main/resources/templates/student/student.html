@@ -15,39 +15,28 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 				<div class="span4 offset4 well">
 					<table class="table table-hover">
 						<tbody>
-						<caption>Faculty Profile</caption>
+						<caption>Student Profile</caption>
 							<tr>
-								<th>First name</th><td th:text="${faculty.firstname}">Sovello</td>
+								<th>First name</th><td th:text="${student.firstname}">Sovello</td>
 							</tr>
 							<tr>
-								<th>Last name</th><td th:text="${faculty.lastname}">Hildebrand</td>
+								<th>Last name</th><td th:text="${student.lastname}">Hildebrand</td>
 							</tr>
 							<tr>
-								<th>Email</th><td th:text="${faculty.email}">smgani@mum.edu</td>
+								<th>Email</th><td th:text="${student.email}">smgani@mum.edu</td>
 							</tr>
 							<tr>
-								<th>Preferred Blocks</th>
+								<th>Registered Courses</th>
 								<td>
-								<th:block th:each="block: ${faculty.blocks}">
-					      			<span th:text="${block}">
-					      				January 2018 Block - 2018-01-15
-					      			</span><br />
-								</th:block>
-								</td>
-							</tr>
-							<tr>
-								<th>Preferred Courses</th>
-								<td>
-								<th:block th:each="prerequisite: ${faculty.courses}">
-					      			<span th:text="${prerequisite}">
+								<!-- <th:block th:each="section: ${registeredSections}">
+					      			<span th:text="${section.name}">
 					      				SW - Software Engineering
 					      			</span><br />
-								</th:block>
+								</th:block> -->
 								</td>
 							</tr>
 						</tbody>
 					</table>
-				
 				</div>
 			</div>
 		</th:block>

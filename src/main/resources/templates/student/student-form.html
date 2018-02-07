@@ -14,7 +14,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 				<div class="row">
 					<!--<div class="col-sm-6 col-md-4 col-md-offset-4">-->
 					<div class="span4 offset4 well">
-						<form action="#" th:action="@{/faculty}" th:object="${faculty}" method="post">
+						<form action="#" th:action="@{/students}" th:object="${student}" method="post">
 						  <div class="form-group">
 						    <label for="firstname">First name</label>
 						    <input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="First name" />
@@ -31,27 +31,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 						    <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email" />
 						    <div class="help-block with-errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 						  </div>
-						  <div class="form-group">
-						    <label for="course">Course:</label>
-						    <select th:field="*{courses}" th:multiple="multiple" class="form-control" id="courses">
-						      <option
-						      	th:each="course: ${allCourses}" 
-						      	th:value="${course.id}"
-						      	th:text="${course}">Machine Learning</option>
-						    </select>
-						  </div>
-						  <div class="form-group">
-						    <label for="course">Preferred Blocks:</label>
-						    <select th:field="*{blocks}" th:multiple="multiple" class="form-control" id="blocks">
-						      <option
-						      	th:each="block: ${allBlocks}" 
-						      	th:value="${block.id}"
-						      	th:text="${block}">January Block, 2018-01-15</option>
-						    </select>
-						  </div>
 						  <div class="form-group text-right">
 						  	<label for="submitButton">
-						  		<a th:href="@{/faculty}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
+						  		<a th:href="@{/student}"><button type="button" class="btn btn-default btn-group">Cancel</button></a>
 						  		<button type="submit" class="btn btn-default btn-group">Save</button>
 						  	</label>
 						  </div>

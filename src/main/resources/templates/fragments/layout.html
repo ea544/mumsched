@@ -21,6 +21,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 		
 		<!-- Custom styles for this template -->
 		<link th:href="@{/css/mumsched.css}" rel="stylesheet" />
+		<th:block layout:fragment="head"></th:block>
 	</head>
 
 	<body>
@@ -51,6 +52,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
 	      	<li th:class="${activeTab == 'sections'} ? 'active' : null"><a th:href="@{/sections}">[Sections]</a></li>
 	      	<li th:class="${activeTab == 'schedules'} ? 'active' : null"><a th:href="@{/schedules}">[Schedules]</a></li>
+	      	<li th:class="${activeTab == 'students'} ? 'active' : null"><a th:href="@{/students}">[Students]</a></li>
 	      	</th:block>
 	      	<li><a th:href="@{/home}">Home</a></li>
 	        <li class="dropdown">
@@ -70,35 +72,31 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 	  </div><!-- /.container-fluid -->
 	</nav>
 	
-	<div class="container">
-		<th:block layout:fragment="content"></th:block>
-	</div>
-	
-	
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container" th:fragment="copy">
-	    &copy; 2018 MUMSched - Group 11
-	    <div class="social-icons">
-		<ul class="list-inline text-center">
-			<li>
-				<a href="#">
-					<i class="fa fa-twitter"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-			    	<i class="fa fa-facebook"></i>
-			  	</a>
-			</li>
-			<li>
-			  	<a href="#">
-			    	<i class="fa fa-instagram"></i>
-			  	</a>
-			</li>
-		</ul>
-	</div>
-	  </div>
-	</nav>
+	<th:block layout:fragment="content"></th:block>
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+		  <div class="container" th:fragment="copy">
+		    &copy; 2018 MUMSched - Group 11
+		    <div class="social-icons">
+				<ul class="list-inline text-center">
+					<li>
+						<a href="#">
+							<i class="fa fa-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+					    	<i class="fa fa-facebook"></i>
+					  	</a>
+					</li>
+					<li>
+					  	<a href="#">
+					    	<i class="fa fa-instagram"></i>
+					  	</a>
+					</li>
+				</ul>
+			</div>
+		  </div>
+		</nav>
 		<!-- Bootstrap core JavaScript -->
 		<script th:src="@{/standard/jquery/jquery.min.js}"></script>
 		<script th:src="@{/standard/bootstrap/js/bootstrap.min.js}"></script>
