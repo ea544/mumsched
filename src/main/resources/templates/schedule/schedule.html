@@ -63,8 +63,12 @@
 
 	<div class="container">
 		<div class="row well">
-			<a th:href="@{/schedules}">Back to schedules</a> <strong> |
-			</strong> <a href="#">Generate Schedule</a>
+			<a th:href="@{/schedules}">Back to schedules</a>
+			<th:block th:if="${allowGenerate}">
+				<strong> | </strong>
+				<a th:href="|@{/generateSchedule?id=}${scheduleId}|">Generate
+					Schedule</a>
+			</th:block>
 		</div>
 		<div class="row well">
 			<th:block th:if="${sf.actionSuccess}">
@@ -73,7 +77,7 @@
 				<br />
 			</th:block>
 			<th:block th:if="! ${sf.actionSuccess}">
-				<span>Invalid id!</span>
+				<span th:text="${sf.actionResponse}"></span>
 			</th:block>
 		</div>
 

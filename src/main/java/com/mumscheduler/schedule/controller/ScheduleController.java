@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mumscheduler.entry.service.EntryServiceInterface;
+import com.mumscheduler.schedule.factory.ScheduleFactory;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
+import com.mumscheduler.schedule.model.ScheduleStatus;
 import com.mumscheduler.schedule.service.ScheduleServiceInterface;
 
 @Controller
@@ -38,7 +40,19 @@ public class ScheduleController {
 
 	@GetMapping(path = "/schedule", params = { "id" })
 	public String getSchedule(Model model, @RequestParam long id) {
-		model.addAttribute("sf", scheduleService.getScheduleById(id));
+		ScheduleFacade sf = ScheduleFactory.getScheduleById(scheduleService, id);
+
+		model.addAttribute("sf", sf);
+		model.addAttribute("allowGenerate", false);
+
+		if (sf.isActionSuccess()) {
+			model.addAttribute("scheduleId", id);
+
+			if (sf.getSchedule().getStatus() != ScheduleStatus.APPROVED) {
+				model.addAttribute("allowGenerate", true);
+			}
+		}
+
 		return "schedule/schedule";
 	}
 
@@ -58,10 +72,11 @@ public class ScheduleController {
 	}
 
 	@GetMapping(path = "/generateSchedule", params = { "id" })
-	public String generateSchedule(Model model, @RequestParam long id) {
+	public String generateSchedule(@RequestParam long id) {
 		ScheduleFacade sf = scheduleService.generateSchedule(id);
+		ScheduleFactory.keepStateOnFail(sf);
 
-		return "redirect: schedule?id=" + id;
+		return "redirect:/schedule?id=" + id;
 	}
 
 }

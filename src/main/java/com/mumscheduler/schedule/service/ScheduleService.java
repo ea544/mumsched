@@ -1,6 +1,7 @@
 package com.mumscheduler.schedule.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -47,9 +48,12 @@ public class ScheduleService implements ScheduleServiceInterface {
 			sf = checkBlockRequirements(sf);
 			sf = checkSectionRequirements(sf);
 		}
+
 		/*
 		 * TODO: Change status and save.
 		 */
+		Schedule s = repo.save(sf.getSchedule());
+		sf.setSchedule(s);
 
 		return sf;
 	}
@@ -120,10 +124,52 @@ public class ScheduleService implements ScheduleServiceInterface {
 			 * residents
 			 */
 
-			// checkFppandMpp(sf.getSchedule().getEntry());
-			// checkMppForFppTrack(sf.getSchedule().getEntry());
-			// checkSectionsForNonFppTrack(sf.getSchedule().getEntry());
-			// checkSectionsForAllTracks();
+			Set<Block> blocks = sf.getBlocksForSchedule();
+			sf = checkSection(sf, sf.getFirstBlock(), sf.getFppEstimate(), ScheduleFactory.FPP_COURSE_CODE);
+			sf = checkSection(sf, sf.getFirstBlock(), sf.getMppEstimate(), ScheduleFactory.MPP_COURSE_CODE);
+			sf = checkSection(sf, sf.getSecondBlock(), sf.getFppEstimate(), ScheduleFactory.MPP_COURSE_CODE);
+			sf = checkSection(sf, sf.getSecondBlock(), sf.getMppEstimate()); // Non - Fpp
+			sf = checkSection(sf, sf.getRemainingBlocks(), sf.getTotalExpectedStudents());
+		}
+
+		return sf;
+	}
+
+	public ScheduleFacade checkSection(ScheduleFacade sf, Block block, int expectedCapacity) {
+		if (sf.isActionSuccess()) {
+			Set<Section> sections = sf.getSectionsByBlock(block);
+			long totalCapacity = sections.stream().map(s -> s.getCapacity()).count();
+
+			if (expectedCapacity == totalCapacity) {
+				return sf;
+			} else {
+				sf = ScheduleFactory.createSections(sf, block, expectedCapacity - totalCapacity, "");
+			}
+		}
+
+		return sf;
+	}
+
+	public ScheduleFacade checkSection(ScheduleFacade sf, Block block, int expectedCapacity, String courseCode) {
+		if (sf.isActionSuccess()) {
+			Set<Section> sections = sf.getSectionsByBlock(block, courseCode);
+			long totalCapacity = sections.stream().map(s -> s.getCapacity()).count();
+
+			if (expectedCapacity == totalCapacity) {
+				return sf;
+			} else {
+				sf = ScheduleFactory.createSections(sf, block, expectedCapacity - totalCapacity, courseCode);
+			}
+		}
+
+		return sf;
+	}
+
+	public ScheduleFacade checkSection(ScheduleFacade sf, List<Block> blocks, int expectedCapacity) {
+		for (Block b : blocks) {
+			if (sf.isActionSuccess()) {
+				sf = checkSection(sf, b, expectedCapacity);
+			}
 		}
 
 		return sf;
