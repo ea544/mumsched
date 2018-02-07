@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mumscheduler.block.model.Block;
+import com.mumscheduler.course.service.CourseServiceInterface;
 import com.mumscheduler.schedule.factory.ScheduleFactory;
 import com.mumscheduler.schedule.model.Schedule;
 import com.mumscheduler.schedule.model.ScheduleFacade;
@@ -19,6 +20,12 @@ public class ScheduleService implements ScheduleServiceInterface {
 
 	@Autowired
 	private ScheduleRepository repo;
+
+
+	@Autowired
+	public void setCourseService(CourseServiceInterface svc) {
+		ScheduleFactory.courseService = svc;
+	}
 
 	@Override
 	public List<Schedule> getScheduleList() {
