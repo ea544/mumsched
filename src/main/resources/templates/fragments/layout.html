@@ -46,12 +46,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 	      <ul class="nav navbar-nav navbar-right">
 	      	<th:block sec:authorize="isAuthenticated()">
 	      	<li th:class="${activeTab == 'dashboard'} ? 'active' : null"><a th:href="@{/dashboard}">[Dashboard]</a></li>
-	      	<li th:class="${activeTab == 'entries'} ? 'active' : null"><a th:href="@{/entries}">[Entries]</a></li>
-	      	<li th:class="${activeTab == 'blocks'} ? 'active' : null"><a th:href="@{/blocks}">[Blocks]</a></li>
 	      	<li th:class="${activeTab == 'courses'} ? 'active' : null"><a th:href="@{/courses}">[Courses]</a></li>
-	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
+	      	<li th:class="${activeTab == 'blocks'} ? 'active' : null"><a th:href="@{/blocks}">[Blocks]</a></li>
+	      	<li th:class="${activeTab == 'entries'} ? 'active' : null"><a th:href="@{/entries}">[Entries]</a></li>
 	      	<li th:class="${activeTab == 'sections'} ? 'active' : null"><a th:href="@{/sections}">[Sections]</a></li>
 	      	<li th:class="${activeTab == 'schedules'} ? 'active' : null"><a th:href="@{/schedules}">[Schedules]</a></li>
+	      	<li th:class="${activeTab == 'faculty'} ? 'active' : null"><a th:href="@{/faculty}">[Faculty]</a></li>
 	      	<li th:class="${activeTab == 'students'} ? 'active' : null"><a th:href="@{/students}">[Students]</a></li>
 	      	</th:block>
 	      	<li><a th:href="@{/home}">Home</a></li>
