@@ -1,5 +1,6 @@
 package com.mumscheduler.entry.controller;
 
+import com.mumscheduler.block.service.BlockService;
 import com.mumscheduler.block.service.BlockServiceInterface;
 import com.mumscheduler.course.model.Course;
 import com.mumscheduler.entry.model.Entry;
@@ -29,7 +30,7 @@ public class EntryController
 	private EntryService entryService;
 	
 	@Autowired
-	private BlockServiceInterface blockService;
+	private BlockService blockService;
 	
 	@GetMapping("/entries")
 	public String entryHome(Model model) 
