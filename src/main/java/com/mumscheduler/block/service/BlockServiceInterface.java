@@ -2,6 +2,7 @@ package com.mumscheduler.block.service;
 
 import com.mumscheduler.block.model.Block;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BlockServiceInterface {
@@ -12,4 +13,5 @@ public interface BlockServiceInterface {
 	public void delete(Long id);
 	public List<Block> getBlocksBySectionId(Long id);
 	public boolean blockExists(Block block);
+	List<Block> getAvailableBlocks(Date today);
 }

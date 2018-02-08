@@ -54,14 +54,16 @@ public class CourseController {
 	 * @return
 	 */
 	@PostMapping("/courses")
-	public String createNewCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult) {
+	public String createNewCourse(@Valid @ModelAttribute("course") Course course, 
+			BindingResult bindingResult,
+			Model model) {
 		courseValidator.validate(course, bindingResult);
 		if (bindingResult.hasErrors()) {
-			if( course.getId() == null) {
-				//model.addAttribute("allPrerequisites", courseService.getCourseList());
+			if( course.getId() != null) {
+				model.addAttribute("allPrerequisites", courseService.getCoursePrerequisites(course.getId()));
 			}
 			else {
-				//model.addAttribute("allPrerequisites", courseService.getCoursePrequisites(course.getId()));
+				model.addAttribute("allPrerequisites", courseService.getCourseList());
 			}
 			
 			return "course/course-form";
@@ -92,7 +94,7 @@ public class CourseController {
 	public String displayEditCourseForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("activeTab", this.activeTab);
 		model.addAttribute("course", courseService.getCourse(id));
-		model.addAttribute("allPrerequisites", courseService.getCoursePrequisites(id));
+		model.addAttribute("allPrerequisites", courseService.getCoursePrerequisites(id));
 		return "course/course-form";
 	}
 
@@ -114,6 +116,7 @@ public class CourseController {
 	@RequestMapping(value = "/courses/{id}/profile", method = RequestMethod.GET)
 	public String viewCourseProfile(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("course", courseService.getCourse(id));
+		model.addAttribute("courseFaculty", courseService.getFacultyByCourseId(id));
 		return "course/course";
 	}
 }

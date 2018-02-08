@@ -2,6 +2,8 @@ package com.mumscheduler.course.service;
 
 import com.mumscheduler.course.model.Course;
 import com.mumscheduler.course.repository.CourseRepository;
+import com.mumscheduler.faculty.model.Faculty;
+import com.mumscheduler.faculty.service.FacultyService;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class CourseService implements CourseServiceInterface {
 	@Autowired
 	private CourseRepository courseRepository;
 	
+	@Autowired
+	private FacultyService facultyService;
 	@Override
 	public Course save(Course course) {
 		return courseRepository.save(course);
@@ -40,8 +44,12 @@ public class CourseService implements CourseServiceInterface {
 	}
 	
 	@Override
-	public List<Course> getCoursePrequisites(Long id){
-		return courseRepository.getCoursePrequisites(id);
+	public List<Course> getCoursePrerequisites(Long id){
+		return courseRepository.getCoursePrerequisites(id);
 	}
 
+	@Override
+	public List<Faculty> getFacultyByCourseId(Long id){
+		return facultyService.getFacultyByCourseId(id);
+	}
 }
