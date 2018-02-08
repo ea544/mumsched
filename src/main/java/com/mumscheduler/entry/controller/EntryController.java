@@ -1,12 +1,11 @@
 package com.mumscheduler.entry.controller;
 
 import com.mumscheduler.block.service.BlockServiceInterface;
-import com.mumscheduler.course.model.Course;
 import com.mumscheduler.entry.model.Entry;
 import com.mumscheduler.entry.service.EntryService;
-import com.mumscheduler.faculty.model.Faculty;
-import com.mumscheduler.section.model.Section;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -66,7 +65,7 @@ public class EntryController
 		
 		model.addAttribute("title",title);
 		model.addAttribute("entry", entry);
-		model.addAttribute("allBlocks", blockService.getBlockList());
+		model.addAttribute("allBlocks", blockService.getAvailableBlocks(Date.valueOf(LocalDate.now())));
 		return "entry/entry-form";
 	}
 	
@@ -81,7 +80,7 @@ public class EntryController
 		model.addAttribute("entry", entry);
 		//model.addAttribute("faculties",faculties);
 		model.addAttribute("entries", entries);
-		model.addAttribute("allBlocks", blockService.getBlockList());
+		model.addAttribute("allBlocks", blockService.getAvailableBlocks(Date.valueOf(LocalDate.now())));
 		model.addAttribute("title", title);
 		
 		//System.out.println(section.getBlockName()+ ' ' +section.getCourseName());
