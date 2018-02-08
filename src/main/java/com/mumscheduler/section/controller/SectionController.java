@@ -146,7 +146,7 @@ public class SectionController {
 		Iterable<Course> courses = courseService.getCourseList();
 		Iterable<Faculty> faculties = facultyService.getFacultyList();
 		Section section = sectionService.getSection(id);
-		model.addAttribute("section", sectionService.getSection(id));
+		model.addAttribute("section", section);
 		model.addAttribute("faculties",faculties);
 		model.addAttribute("courses", courses);
 		model.addAttribute("title", title);
