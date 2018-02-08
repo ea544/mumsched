@@ -23,16 +23,27 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 								<tr>
 									<th>Level</th><td th:text="${course.level}">500</td>
 								</tr>
-								<tr>
-									<th>Prerequisites</th>
-									<td>
-									<th:block th:each="prereq: ${course.prerequisites}">
-						      			<span th:text="${prereq.code}+' - '+${prereq.name}">
-						      				SW - Software Engineering
-						      			</span><br />
-									</th:block>
-									</td>
-								</tr>
+								<th:block th:if="${not #lists.isEmpty(course.prerequisites)}">
+									<tr>
+										<th>Prerequisites</th>
+										<td>
+										<th:block th:each="prereq: ${course.prerequisites}">
+							      			<span th:text="${prereq.code}+' - '+${prereq.name}">
+							      				SW - Software Engineering
+							      			</span><br />
+										</th:block>
+										</td>
+									</tr>
+								</th:block>
+								
+								<th:block th:if="${not #lists.isEmpty(courseFaculty)}">
+									<tr>
+										<th>Faculty teaching this course</th>
+										<th:block th:each="faculty: ${courseFaculty}">
+							      			<td th:text="${faculty.firstname}+' '+${faculty.lastname}">Sovello Hildebrand - 25</td>
+										</th:block>
+									</tr>
+								</th:block>
 							</tbody>
 						</table>
 					

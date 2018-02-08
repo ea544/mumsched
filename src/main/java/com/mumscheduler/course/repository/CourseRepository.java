@@ -23,6 +23,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 	 * 
 	 */
 	@Query("FROM Course c WHERE c.id != :id")
-	public List<Course> getCoursePrequisites(@Param("id") Long id);
+	public List<Course> getCoursePrerequisites(@Param("id") Long id);
 	
 }

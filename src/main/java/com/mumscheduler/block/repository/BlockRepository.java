@@ -2,7 +2,6 @@ package com.mumscheduler.block.repository;
 
 import com.mumscheduler.block.model.Block;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -25,4 +24,7 @@ public interface BlockRepository extends JpaRepository<Block, Long> {
 	@Query("FROM Block b WHERE b.name=:name AND b.startdate=:startdate AND b.enddate=:enddate")
 	public Block findBlockByNamesAndDates(@Param("name") String name, @Param("startdate") Date startdate,
 			@Param("enddate") Date enddate);
+	
+	@Query("FROM Block b WHERE b.startdate >= :today")
+	public List<Block> getAvailableBlocks(@Param("today") Date today);
 }
