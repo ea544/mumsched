@@ -1,5 +1,6 @@
 package com.mumscheduler.schedule.factory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -85,23 +86,12 @@ public final class ScheduleFactory {
 
 	public static ScheduleFacade createSections(ScheduleFacade sf, Block block, long capacity, String courseCode) {
 		if (sf.isActionSuccess()) {
-			Section section = new Section();
-			Course course = null;
-			if (courseCode == "") {
-				course = getCourseForSection();
-			} else {
-				course = getCourseForSection(courseCode);
-			}
-			section.setCapacity((int) capacity);
-
+			Course course = getCourseByCode(courseCode);
 			/*
 			 * TODO: Some process needs to exist for course and faculty
 			 */
 			if (course != null) {
-				section.setCourse(course);
-				// section.setFaculty(null);
-
-				block.getSections().add(section);
+				block.getSections().addAll(createSectionsBasedOnCourse(courseCode, capacity));
 				sf.getSchedule().getBlocks().add(block);
 
 			} else {
@@ -129,6 +119,36 @@ public final class ScheduleFactory {
 		}
 
 		return course;
+	}
+	
+	private static Course getCourseByCode(String courseCode) {
+		Course course = null;
+		if (courseCode == "") {
+			course = getCourseForSection();
+		} else {
+			course = getCourseForSection(courseCode);
+		}
+		
+		return course;
+	}
+
+	private static List<Section> createSectionsBasedOnCourse(String courseCode, long capacity) {
+		Course course = getCourseByCode(courseCode);
+		List<Section> sections = new ArrayList<>();
+
+		if (course.getCapacity() == capacity) {
+			sections.add(new Section(course.getCapacity(), course, null));
+		} else {
+			long remCap = capacity;
+			
+			while(remCap > 0) {
+				sections.add(new Section(course.getCapacity(), course, null));
+				course = getCourseByCode(courseCode);
+				remCap -= course.getCapacity();
+			}
+		}
+
+		return sections;
 	}
 
 	private static Course getCourseForSection(String courseCode) {

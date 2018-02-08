@@ -130,7 +130,7 @@
 										th:text="|${#dates.format(b.startdate, 'MM/dd/yyyy')} - ${#dates.format(b.enddate, 'MM/dd/yyyy')}|">
 									</td>
 									<td><th:block th:each="s : ${b.sections}">
-											<span th:text="${s.course.name}"></span>
+											<span th:text="|${s.course.name} (Class #${s.course.id})|"></span>
 											<br />
 										</th:block></td>
 								</tr>
