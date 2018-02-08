@@ -80,7 +80,7 @@ public class SectionController {
 			error = "Course name and Faculty name are already exist!";
 			
 			String title = "Create a new section";
-			model.addAttribute("allSection", sectionService.getSectionList());
+			//model.addAttribute("allSection", sectionService.getSectionList());
 			Iterable<Course> courses = courseService.getCourseList();
 			Iterable<Faculty> faculties = facultyService.getFacultyList();
 			model.addAttribute("courses", courses);
@@ -110,7 +110,7 @@ public class SectionController {
 	@GetMapping("/sections/new")
 	public String displayNewSectionForm(Model model, @ModelAttribute("section") Section newSection) {
 		String title = "Create a new section";
-		model.addAttribute("allSection", sectionService.getSectionList());
+		//model.addAttribute("allSection", sectionService.getSectionList());
 		Iterable<Course> courses = courseService.getCourseList();
 		Iterable<Faculty> faculties = facultyService.getFacultyList();
 		model.addAttribute("courses", courses);
