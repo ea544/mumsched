@@ -3,6 +3,7 @@ package com.mumscheduler.block.service;
 import com.mumscheduler.block.model.Block;
 import com.mumscheduler.block.repository.BlockRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class BlockService implements BlockServiceInterface {
 	@Override
 	public List<Block> getBlocksBySectionId(Long id) {
 		return blockRepository.getBlocksBySectionId(id);
+	}
+	
+	@Override
+	public List<Block> getAvailableBlocks(Date today) {
+		return blockRepository.getAvailableBlocks(today);
 	}
 
 }

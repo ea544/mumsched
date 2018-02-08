@@ -41,4 +41,8 @@ public class FacultyService implements FacultyServiceInterface {
 		return facultyRepository.findAll();
 	}
 
+	public List<Faculty> getFacultyByCourseId(Long id) {
+		return facultyRepository.getFacultyByCourseId(id);
+	}
+
 }
