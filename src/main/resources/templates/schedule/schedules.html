@@ -96,8 +96,9 @@
 								<!-- 								</th:block>  --> <!-- <th:block th:if="${s.status.name() == 'APPROVED'}"> -->
 								<!-- <a th:href="|/s?id=${s.id}|" th:text="View"></a> --> <!-- </th:block -->
 								<!-- 								><strong> | </strong>  --> 
-								<a href="#">Edit</a> <strong>
-									| </strong> <a href="#">Delete</a>
+								<a th:href="|/schedule?id=${s.id}|">Edit</a> 
+								<strong> | </strong>
+								<a th:href="|/deleteSchedule?id=${s.id}|">Delete</a>
 							</td>
 						</tr>
 					</th:block>

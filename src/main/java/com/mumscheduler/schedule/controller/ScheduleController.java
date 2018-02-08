@@ -32,12 +32,6 @@ public class ScheduleController {
 		return "schedule/schedules";
 	}
 
-	// @GetMapping(path = "/schedule", params = { "year", "entry" })
-	// public String getSchedule(@RequestParam String year, @RequestParam String
-	// entry) {
-	// return "schedule/schedule";
-	// }
-
 	@GetMapping(path = "/schedule", params = { "id" })
 	public String getSchedule(Model model, @RequestParam long id) {
 		ScheduleFacade sf = ScheduleFactory.getScheduleById(scheduleService, id);
@@ -77,6 +71,17 @@ public class ScheduleController {
 		ScheduleFactory.keepStateOnFail(sf);
 
 		return "redirect:/schedule?id=" + id;
+	}
+
+	@GetMapping(path = "/deleteSchedule", params = { "id" })
+	public String deleteSchedule(Model model, @RequestParam long id) {
+		ScheduleFacade sf = ScheduleFactory.getScheduleById(scheduleService, id);
+
+		if (sf.isActionSuccess()) {
+			// scheduleService.removeScheduleById(id);
+		}
+
+		return "redirect:/schedules";
 	}
 
 }
