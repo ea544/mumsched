@@ -96,7 +96,7 @@ public class ScheduleFacade {
 
 	public List<Block> getRemainingBlocks() {
 		List<Block> blocks = getBlocksForSchedule().stream()
-				.sorted((b1, b2) -> b1.getStartdate().compareTo(b2.getStartdate())).skip(2).map(b -> b)
+				.sorted((b1, b2) -> b1.getStartdate().compareTo(b2.getStartdate())).skip(2).limit(8).map(b -> b)
 				.collect(Collectors.toList());
 
 		return blocks;
